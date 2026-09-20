@@ -1,4 +1,4 @@
-/// <reference types="@getpopcraft/plugin-typings" />
+/// <reference types="@popcraft/plugin-typings" />
 
 // Random Colors — recolours the selection. Demonstrates commands, read/write and notify.
 (async () => {

@@ -1,5 +1,5 @@
 {
-  "name": "@getpopcraft/plugin-examples-repo",
+  "name": "@popcraft/plugin-examples-repo",
   "private": true,
   "version": "0.0.0",
   "description": "Example plugins and type definitions for the PopCraft plugin API.",

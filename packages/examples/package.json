@@ -1,5 +1,5 @@
 {
-  "name": "@getpopcraft/plugin-examples",
+  "name": "@popcraft/plugin-examples",
   "version": "0.1.0",
   "description": "Example PopCraft plugins: commands, UI panels, canvas widgets and theme packs.",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "directory": "packages/examples"
   },
   "devDependencies": {
-    "@getpopcraft/plugin-typings": "workspace:*"
+    "@popcraft/plugin-typings": "workspace:*"
   },
   "publishConfig": { "access": "public" }
 }

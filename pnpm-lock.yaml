@@ -14,7 +14,7 @@ importers:
 
   packages/examples:
     devDependencies:
-      '@getpopcraft/plugin-typings':
+      '@popcraft/plugin-typings':
         specifier: workspace:*
         version: link:../plugin-typings
 

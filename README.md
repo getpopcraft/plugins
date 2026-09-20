@@ -5,8 +5,8 @@ Everything here is MIT-licensed — copy it, fork it, ship it.
 
 | Package | What it is |
 | --- | --- |
-| [`@getpopcraft/plugin-typings`](packages/plugin-typings) | Ambient `.d.ts` for the global `popcraft` API |
-| [`@getpopcraft/plugin-examples`](packages/examples) | The four example plugins below |
+| [`@popcraft/plugin-typings`](packages/plugin-typings) | Ambient `.d.ts` for the global `popcraft` API |
+| [`@popcraft/plugin-examples`](packages/examples) | The four example plugins below |
 
 Full developer guide: <https://popcraft.app/docs/plugins>.
 
@@ -27,11 +27,11 @@ Install from **Main menu → Manage plugins… → Install from file…** with e
 ## Types
 
 ```bash
-npm i -D @getpopcraft/plugin-typings
+npm i -D @popcraft/plugin-typings
 ```
 
 ```js
-/// <reference types="@getpopcraft/plugin-typings" />
+/// <reference types="@popcraft/plugin-typings" />
 ```
 
 ## Sandbox

@@ -1,5 +1,5 @@
 {
-  "name": "@getpopcraft/plugin-typings",
+  "name": "@popcraft/plugin-typings",
   "version": "0.1.0",
   "description": "Ambient TypeScript definitions for the PopCraft plugin API.",
   "license": "MIT",

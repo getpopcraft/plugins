@@ -1,4 +1,4 @@
-/// <reference types="@getpopcraft/plugin-typings" />
+/// <reference types="@popcraft/plugin-typings" />
 
 // Registered for every command: clicks on an inserted counter run this plugin with command "widget".
 popcraft.widget.register({

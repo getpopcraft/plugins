@@ -20,4 +20,5 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
-      - run: pnpm -r --filter "./packages/*" exec npm pack --dry-run
+      - name: Pack (validates the published file list, rewriting workspace specs)
+        run: pnpm -r --filter "./packages/*" pack --pack-destination "$RUNNER_TEMP"

@@ -3,8 +3,18 @@
   "version": "0.1.0",
   "description": "Example PopCraft plugins: commands, UI panels, canvas widgets and theme packs.",
   "license": "MIT",
-  "files": ["random-colors", "rename-layers", "vote-counter", "comic-themes"],
-  "keywords": ["popcraft", "plugin", "examples"],
+  "files": [
+    "random-colors",
+    "rename-layers",
+    "vote-counter",
+    "comic-themes",
+    "LICENSE"
+  ],
+  "keywords": [
+    "popcraft",
+    "plugin",
+    "examples"
+  ],
   "homepage": "https://popcraft.app/docs/plugins",
   "repository": {
     "type": "git",
@@ -14,5 +24,7 @@
   "devDependencies": {
     "@popcraft/plugin-typings": "workspace:*"
   },
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "access": "public"
+  }
 }

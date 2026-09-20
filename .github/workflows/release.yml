@@ -60,22 +60,17 @@ jobs:
           echo "continue=true" >> "$GITHUB_OUTPUT"
           echo "version=${{ steps.sem.outputs.new_release_version }}" >> "$GITHUB_OUTPUT"
 
-      - name: Set both package versions
+      - name: Set the package version
         if: steps.gate.outputs.continue == 'true'
         env:
           VERSION: ${{ steps.gate.outputs.version }}
         run: |
-          # Both packages move together: plugin-examples depends on plugin-typings,
-          # and one version for "the examples" is what the docs cite.
-          for dir in packages/plugin-typings packages/examples; do
-            node -e "
-              const fs = require('fs');
-              const f = '$dir/package.json';
-              const p = JSON.parse(fs.readFileSync(f, 'utf8'));
-              p.version = process.env.VERSION;
-              fs.writeFileSync(f, JSON.stringify(p, null, 2) + '\n');
-            "
-          done
+          node -e "
+            const fs = require('fs');
+            const p = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            p.version = process.env.VERSION;
+            fs.writeFileSync('package.json', JSON.stringify(p, null, 2) + '\n');
+          "
           pnpm install --lockfile-only
 
       - name: Commit the version bump
@@ -85,7 +80,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add packages/*/package.json pnpm-lock.yaml
+          git add package.json pnpm-lock.yaml
           git commit -m "chore(release): v${VERSION} [skip ci]" || true
           git push origin HEAD:main
 

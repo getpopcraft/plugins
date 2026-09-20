@@ -1,6 +1,6 @@
 {
   "name": "@popcraft/plugins",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "The PopCraft plugin SDK: the sandbox runtime the editor injects, and the types plugin authors build against.",
   "license": "MIT",
   "packageManager": "pnpm@11.5.1",

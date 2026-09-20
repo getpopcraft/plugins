@@ -1,0 +1,13 @@
+{
+  "name": "@getpopcraft/plugin-examples-repo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Example plugins and type definitions for the PopCraft plugin API.",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

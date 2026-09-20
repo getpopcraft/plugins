@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowJs": true,
+    "checkJs": false,
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": false,
+    "resolveJsonModule": true
+  },
+  "include": ["packages/plugin-typings/index.d.ts", "packages/examples/**/*.js"]
+}

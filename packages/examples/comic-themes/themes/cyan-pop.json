@@ -1,0 +1,20 @@
+{
+  "type": "light",
+  "extends": "popcraft.comic-yellow",
+  "tokens": {
+    "app.bg": "#00AEEF",
+    "panel.bg": "#7fd6f7",
+    "base": "#bfeafb",
+    "sunken": "#e5f7fe",
+    "control.hover": "#4cc6f3",
+    "raised.hover": "#bfeafb",
+    "accent": "#FFED00",
+    "accent.hover": "#fff45c",
+    "fg.onAccent": "#231F20",
+    "focusRing": "#EC008C",
+    "canvas.selection": "#EC008C",
+    "canvas.ruler.bg": "#7fd6f7",
+    "canvas.ruler.track": "#231F20"
+  },
+  "css": "[data-pc=\"section-title\"] { text-shadow: 2px 2px 0 #FFED00; }"
+}

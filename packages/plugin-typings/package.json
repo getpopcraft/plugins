@@ -1,0 +1,16 @@
+{
+  "name": "@getpopcraft/plugin-typings",
+  "version": "0.1.0",
+  "description": "Ambient TypeScript definitions for the PopCraft plugin API.",
+  "license": "MIT",
+  "types": "index.d.ts",
+  "files": ["index.d.ts"],
+  "keywords": ["popcraft", "plugin", "typings"],
+  "homepage": "https://popcraft.app/docs/plugins",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getpopcraft/plugin-examples.git",
+    "directory": "packages/plugin-typings"
+  },
+  "publishConfig": { "access": "public" }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "dark",
+  "extends": "popcraft.comic-black",
+  "tokens": {
+    "border": "#EC008C",
+    "border.strong": "#EC008C",
+    "border.emph": "#EC008C",
+    "fg": "#ffffff",
+    "fg.bright": "#ffffff",
+    "fg.soft": "#ffe6f4",
+    "fg.dim": "#ffcce9",
+    "fg.muted": "#ff99d3",
+    "accent": "#EC008C",
+    "accent.hover": "#ff2aa6",
+    "fg.onAccent": "#ffffff",
+    "shadow.panel": "6px 6px 0 #EC008C",
+    "shadow.popover": "6px 6px 0 #EC008C",
+    "shadow.button": "3px 3px 0 #EC008C",
+    "panel.pattern": "radial-gradient(circle, rgba(236,0,140,0.12) 1.5px, transparent 2px)",
+    "canvas.selection": "#EC008C",
+    "canvas.ruler.label": "#ffffff"
+  }
+}

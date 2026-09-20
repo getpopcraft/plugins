@@ -1,0 +1,18 @@
+{
+  "id": "popcraft.rename-layers",
+  "name": "Rename Layers",
+  "version": "1.0.0",
+  "description": "Batch-rename the selected layers with a pattern (# = number). Has a UI panel.",
+  "main": "main.js",
+  "ui": "ui.html",
+  "permissions": [
+    "read",
+    "write"
+  ],
+  "category": "productivity",
+  "tags": [
+    "layers",
+    "rename",
+    "batch"
+  ]
+}

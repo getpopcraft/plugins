@@ -1,0 +1,21 @@
+{
+  "id": "popcraft.vote-counter",
+  "name": "Vote Counter",
+  "version": "1.0.0",
+  "description": "A canvas widget everyone in the file can click to count votes.",
+  "author": "PopCraft",
+  "main": "main.js",
+  "permissions": [],
+  "commands": [
+    {
+      "id": "insert",
+      "label": "Insert counter"
+    }
+  ],
+  "category": "prototyping",
+  "tags": [
+    "widget",
+    "collab",
+    "jam"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "popcraft-examples.comic-themes",
+  "name": "Comic Themes (example)",
+  "version": "1.0.0",
+  "description": "Two extra comic-book UI themes: Cyan Pop and Magenta Pop. A data-only plugin \u2014 no code, no permissions.",
+  "author": "PopCraft",
+  "contributes": {
+    "themes": [
+      {
+        "id": "popcraft-examples.comic-themes.cyan",
+        "label": "Cyan Pop",
+        "path": "themes/cyan-pop.json"
+      },
+      {
+        "id": "popcraft-examples.comic-themes.magenta",
+        "label": "Magenta Pop",
+        "path": "themes/magenta-pop.json"
+      }
+    ]
+  },
+  "category": "themes",
+  "tags": [
+    "comic",
+    "theme-pack",
+    "light"
+  ],
+  "homepage": "https://popcraft.app/docs/themes/publishing-themes"
+}

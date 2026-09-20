@@ -1,4 +1,6 @@
-// Type definitions for PopCraft plugins. Reference with: /// <reference path="./popcraft-plugin-typings.d.ts" />
+// Type definitions for PopCraft plugins. Reference from the top of your main script with either
+//   /// <reference types="@getpopcraft/plugin-typings" />   (npm i -D @getpopcraft/plugin-typings)
+//   /// <reference path="./popcraft-plugin-typings.d.ts" /> (file downloaded next to your plugin)
 //
 // A plugin is a manifest.json + main script (+ optional ui.html), installed from a .zip or a
 // single-file .json bundle `{ "manifest": {...}, "main": "...code...", "ui": "<html>" }`.

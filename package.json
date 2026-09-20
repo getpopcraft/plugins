@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "description": "Example plugins and type definitions for the PopCraft plugin API.",
   "license": "MIT",
+  "packageManager": "pnpm@11.5.1",
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },

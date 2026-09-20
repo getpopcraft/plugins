@@ -1,14 +1,47 @@
 {
-  "name": "@popcraft/plugin-examples-repo",
-  "private": true,
-  "version": "0.0.0",
-  "description": "Example plugins and type definitions for the PopCraft plugin API.",
+  "name": "@popcraft/plugins",
+  "version": "0.1.0",
+  "description": "The PopCraft plugin SDK: the sandbox runtime the editor injects, and the types plugin authors build against.",
   "license": "MIT",
   "packageManager": "pnpm@11.5.1",
   "scripts": {
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "build": "node scripts/build.mjs && tsc -p tsconfig.json && node scripts/copy-global.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.examples.json",
+    "prepack": "npm run build"
   },
   "devDependencies": {
-    "typescript": "^5.6.0"
+    "esbuild": "^0.25.0",
+    "typescript": "^5.6.0",
+    "@popcraft/plugins": "link:."
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "popcraft",
+    "plugin",
+    "sdk",
+    "design",
+    "editor"
+  ],
+  "homepage": "https://popcraft.app/docs/plugins",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getpopcraft/plugins.git"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

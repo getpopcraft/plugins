@@ -1,4 +1,4 @@
-/// <reference types="@popcraft/plugin-typings" />
+/// <reference types="@popcraft/plugins" />
 
 // Rename Layers — UI ↔ main messaging, selection events and per-plugin storage.
 (async () => {

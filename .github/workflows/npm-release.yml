@@ -1,9 +1,9 @@
-# Publish @popcraft/* to npmjs when a release is promoted from prerelease.
+# Publish @popcraft/plugins to npmjs when a release is promoted from prerelease.
 #
-# AUTH: OIDC trusted publishing — no NPM_TOKEN. One-time setup on npmjs.com, per package
-# (@popcraft/plugin-typings and @popcraft/plugin-examples), after the first manual publish:
+# AUTH: OIDC trusted publishing — no NPM_TOKEN. One-time setup on npmjs.com, after the first
+# manual publish:
 #   Organization or user: getpopcraft
-#   Repository:           plugin-examples
+#   Repository:           plugins
 #   Workflow filename:    npm-release.yml
 #   Environment:          (leave blank)
 # Requires npm >= 11.5.1 and id-token: write.
@@ -23,12 +23,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    strategy:
-      fail-fast: false
-      matrix:
-        package:
-          - { dir: packages/plugin-typings, name: "@popcraft/plugin-typings" }
-          - { dir: packages/examples, name: "@popcraft/plugin-examples" }
     steps:
       - name: Checkout the tag
         uses: actions/checkout@v7
@@ -52,19 +46,23 @@ jobs:
       - name: Skip if this version is already on npm
         id: gate
         run: |
-          VERSION=$(node -p "require('./${{ matrix.package.dir }}/package.json').version")
+          VERSION=$(node -p "require('./package.json').version")
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          if npm view "${{ matrix.package.name }}@$VERSION" version >/dev/null 2>&1; then
+          if npm view "@popcraft/plugins@$VERSION" version >/dev/null 2>&1; then
             echo "published=true" >> "$GITHUB_OUTPUT"
-            echo "${{ matrix.package.name }}@$VERSION is already on npm — nothing to do."
+            echo "@popcraft/plugins@$VERSION is already on npm — nothing to do."
           else
             echo "published=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Pack with pnpm
+      - name: Install and build
         if: steps.gate.outputs.published == 'false'
-        # pnpm, not npm: only pnpm rewrites `workspace:*` specs to real versions.
-        run: pnpm --filter "./${{ matrix.package.dir }}" pack --pack-destination "$RUNNER_TEMP"
+        run: pnpm install --frozen-lockfile
+
+      - name: Pack
+        if: steps.gate.outputs.published == 'false'
+        # prepack compiles the runtime and the declarations into dist/.
+        run: pnpm pack --pack-destination "$RUNNER_TEMP"
 
       - name: Publish to npmjs
         if: steps.gate.outputs.published == 'false'

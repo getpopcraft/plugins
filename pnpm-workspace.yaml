@@ -1,0 +1,4 @@
+# esbuild compiles the plugin runtime; without this its install script is blocked and CI fails
+# (locally it may pass on a user-level allowBuilds, which is exactly why it belongs in the repo).
+allowBuilds:
+  esbuild: true

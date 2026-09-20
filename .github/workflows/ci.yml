@@ -19,6 +19,9 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # The runtime bundle and the generated ambient global are build outputs, so the typecheck
+      # (which checks the examples against that global) needs them to exist first.
+      - run: pnpm build
       - run: pnpm typecheck
       - name: Pack (validates the published file list)
         run: pnpm pack --pack-destination "$RUNNER_TEMP"

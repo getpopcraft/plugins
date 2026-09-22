@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "localId": "popcraft-examples.retro",
+    "kind": "brush",
+    "name": "Retro Print",
+    "description": "Print-shop textures: big halftone, risograph grain, screentone, confetti and pop-art dots.",
+    "category": "fun",
+    "tags": [
+      "retro",
+      "print",
+      "pattern"
+    ],
+    "thumbnail": "thumbnail.svg",
+    "previews": [
+      "previews/big-halftone.svg",
+      "previews/riso-grain.svg",
+      "previews/screentone.svg",
+      "previews/confetti.svg",
+      "previews/pop-dots.svg"
+    ]
+  },
+  "payload": {
+    "brushes": [
+      {
+        "name": "Big Halftone",
+        "basePreset": "HALFTONE_DOTS",
+        "size": 120,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.35,
+          "scatter": 0,
+          "count": 1,
+          "jitter": 0,
+          "stampSize": 0.3,
+          "pressureSize": true,
+          "taper": 0,
+          "settle": 0
+        }
+      },
+      {
+        "name": "Riso Grain",
+        "basePreset": "CONCRETE",
+        "size": 160,
+        "opacity": 0.8,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.12,
+          "scatter": 0.5,
+          "count": 10,
+          "jitter": 0.6,
+          "stampSize": 0.04,
+          "pressureSize": false,
+          "taper": 0,
+          "countJitter": 0.3,
+          "settle": 0
+        },
+        "blendMode": "MULTIPLY"
+      },
+      {
+        "name": "Screentone",
+        "basePreset": "STIPPLE",
+        "size": 100,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.2,
+          "scatter": 0,
+          "count": 1,
+          "jitter": 0,
+          "stampSize": 0.08,
+          "pressureSize": false,
+          "taper": 0,
+          "settle": 0
+        }
+      },
+      {
+        "name": "Confetti",
+        "basePreset": "SPLATTER",
+        "size": 90,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.35,
+          "scatter": 1,
+          "count": 4,
+          "jitter": 0.4,
+          "stampSize": 0.08,
+          "pressureSize": true,
+          "taper": 0,
+          "tip": "SQUARE",
+          "rotJitter": 1,
+          "hueJitter": 0.5,
+          "settle": 0
+        }
+      },
+      {
+        "name": "Pop Dots",
+        "basePreset": "HALFTONE_DOTS",
+        "size": 60,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "VECTOR",
+        "dynamics": {
+          "spacing": 0.6,
+          "scatter": 0,
+          "count": 1,
+          "jitter": 0,
+          "stampSize": 0.35,
+          "pressureSize": false,
+          "taper": 0,
+          "settle": 0
+        }
+      }
+    ]
+  }
+}

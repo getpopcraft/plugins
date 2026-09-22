@@ -7,5 +7,5 @@ To install, zip the contents of this folder so that `manifest.json` is at the ro
 **⋯ → Manage plugins… → Install from file**:
 
 ```bash
-cd packages/examples/comic-themes && zip -r ../comic-themes.zip manifest.json themes
+cd examples/themes/comic-themes && zip -r ../comic-themes.zip manifest.json themes
 ```

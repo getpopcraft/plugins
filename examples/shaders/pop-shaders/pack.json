@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "localId": "popcraft-examples.pop-shaders",
+    "kind": "shader",
+    "name": "Pop Shaders",
+    "description": "Animated shader fills with a print feel: Ben-Day dots, a speed-line burst and a CMYK misregistration wash.",
+    "category": "fun",
+    "tags": ["halftone", "comic", "animated"],
+    "thumbnail": "thumbnail.svg"
+  },
+  "payload": {
+    "shaders": [
+      { "name": "Ben-Day Dots", "file": "ben-day.wgsl" },
+      { "name": "Speed Burst", "file": "speed-burst.wgsl" },
+      { "name": "Misregistered", "file": "misregistered.wgsl" }
+    ]
+  }
+}

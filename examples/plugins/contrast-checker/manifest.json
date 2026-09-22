@@ -1,0 +1,15 @@
+{
+  "id": "popcraft-examples.contrast-checker",
+  "name": "Contrast Checker",
+  "version": "1.0.0",
+  "description": "Checks text against WCAG 2.1 contrast rules. Measures each text layer's colour against the fill behind it, selects every layer that fails AA, and tells you the worst ratio.",
+  "author": "PopCraft",
+  "main": "main.js",
+  "permissions": ["read", "write"],
+  "commands": [
+    { "id": "selection", "label": "Check selection" },
+    { "id": "page", "label": "Check the whole page" }
+  ],
+  "category": "accessibility",
+  "tags": ["wcag", "contrast", "a11y"]
+}

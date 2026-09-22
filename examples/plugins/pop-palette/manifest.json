@@ -1,0 +1,11 @@
+{
+  "id": "popcraft-examples.pop-palette",
+  "name": "Pop Palette",
+  "version": "1.0.0",
+  "description": "Adds the classic four-colour comic palette to the file as colour styles: process yellow, magenta, cyan and ink.",
+  "author": "PopCraft",
+  "main": "main.js",
+  "permissions": ["read", "write"],
+  "category": "design-systems",
+  "tags": ["color", "styles", "palette"]
+}

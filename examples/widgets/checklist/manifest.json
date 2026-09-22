@@ -1,0 +1,12 @@
+{
+  "id": "popcraft-examples.checklist",
+  "name": "Panel Checklist",
+  "version": "1.0.0",
+  "description": "A shared checklist widget for a comic page: pencils, inks, colours, letters. Click an item to tick it off.",
+  "author": "PopCraft",
+  "main": "main.js",
+  "permissions": [],
+  "commands": [{ "id": "insert", "label": "Insert checklist" }],
+  "category": "widgets",
+  "tags": ["widget", "checklist", "workflow"]
+}

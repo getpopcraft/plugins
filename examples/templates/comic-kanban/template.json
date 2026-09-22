@@ -1,0 +1,717 @@
+{
+ "meta": {
+  "localId": "popcraft-examples.comic-kanban",
+  "name": "Comic Kanban",
+  "description": "A whiteboard kanban: to do, doing, done, with sticky notes ready to move.",
+  "kind": "BOARD",
+  "category": "board",
+  "tags": [
+   "board",
+   "kanban",
+   "planning"
+  ],
+  "sizes": [
+   "free"
+  ],
+  "fonts": [],
+  "brandSlots": []
+ },
+ "payload": {
+  "mode": "fragment",
+  "nodes": {
+   "be1a6e77-7988-4ac3-934a-c58ae8a1eddd": {
+    "id": "be1a6e77-7988-4ac3-934a-c58ae8a1eddd",
+    "name": "To do",
+    "type": "FRAME",
+    "x": 0,
+    "y": 0,
+    "width": 320,
+    "height": 760,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": null,
+    "childIds": [
+     "77ea671b-7520-4392-8bc1-3163fb2bcc00",
+     "0d820913-653a-4393-a52d-b0076092e33a",
+     "7116428e-ba1a-4545-ab6e-fdbcd2c4f304",
+     "3009d50e-4fc5-4763-bec3-353879f3eb76"
+    ],
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 0.9450980392156862,
+       "g": 0.9450980392156862,
+       "b": 0.9529411764705882,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 12,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED",
+    "clipsContent": false,
+    "backgroundColor": {
+     "r": 0.9450980392156862,
+     "g": 0.9450980392156862,
+     "b": 0.9529411764705882,
+     "a": 1
+    },
+    "layoutMode": "VERTICAL",
+    "primaryAxisAlignItems": "MIN",
+    "counterAxisAlignItems": "CENTER",
+    "padding": {
+     "top": 20,
+     "right": 20,
+     "bottom": 20,
+     "left": 20
+    },
+    "itemSpacing": 16,
+    "interactions": [],
+    "overflowScrolling": "NONE",
+    "isFlowStartingPoint": false
+   },
+   "77ea671b-7520-4392-8bc1-3163fb2bcc00": {
+    "id": "77ea671b-7520-4392-8bc1-3163fb2bcc00",
+    "name": "Text",
+    "type": "TEXT",
+    "x": 0,
+    "y": 0,
+    "width": 280,
+    "height": 30,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": true,
+    "parentId": "be1a6e77-7988-4ac3-934a-c58ae8a1eddd",
+    "childIds": [],
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 0.24705882352941178,
+       "g": 0.24705882352941178,
+       "b": 0.27450980392156865,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED",
+    "characters": "To do",
+    "fontSize": 20,
+    "fontFamily": "Inter",
+    "fontWeight": 700,
+    "fontStyle": "normal",
+    "textAlign": "LEFT",
+    "verticalAlign": "TOP",
+    "lineHeight": "AUTO",
+    "letterSpacing": 0,
+    "paragraphSpacing": 0,
+    "paragraphIndent": 0,
+    "textDecoration": "NONE",
+    "textCase": "ORIGINAL",
+    "textAutoResize": "NONE",
+    "interactions": []
+   },
+   "0d820913-653a-4393-a52d-b0076092e33a": {
+    "id": "0d820913-653a-4393-a52d-b0076092e33a",
+    "name": "Sticky Note",
+    "type": "STICKY",
+    "x": 0,
+    "y": 0,
+    "width": 240,
+    "height": 240,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": "be1a6e77-7988-4ac3-934a-c58ae8a1eddd",
+    "childIds": [],
+    "text": "Task",
+    "authorName": "Template",
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 1,
+       "g": 0.9019607843137255,
+       "b": 0.5019607843137255,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED"
+   },
+   "7116428e-ba1a-4545-ab6e-fdbcd2c4f304": {
+    "id": "7116428e-ba1a-4545-ab6e-fdbcd2c4f304",
+    "name": "Sticky Note",
+    "type": "STICKY",
+    "x": 0,
+    "y": 0,
+    "width": 240,
+    "height": 240,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": "be1a6e77-7988-4ac3-934a-c58ae8a1eddd",
+    "childIds": [],
+    "text": "Task",
+    "authorName": "Template",
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 1,
+       "g": 0.9019607843137255,
+       "b": 0.5019607843137255,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED"
+   },
+   "3009d50e-4fc5-4763-bec3-353879f3eb76": {
+    "id": "3009d50e-4fc5-4763-bec3-353879f3eb76",
+    "name": "Sticky Note",
+    "type": "STICKY",
+    "x": 0,
+    "y": 0,
+    "width": 240,
+    "height": 240,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": "be1a6e77-7988-4ac3-934a-c58ae8a1eddd",
+    "childIds": [],
+    "text": "Task",
+    "authorName": "Template",
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 1,
+       "g": 0.9019607843137255,
+       "b": 0.5019607843137255,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED"
+   },
+   "72261e3f-41af-4084-a2d7-29dab78cad2c": {
+    "id": "72261e3f-41af-4084-a2d7-29dab78cad2c",
+    "name": "In progress",
+    "type": "FRAME",
+    "x": 344,
+    "y": 0,
+    "width": 320,
+    "height": 760,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": null,
+    "childIds": [
+     "b1b94c0b-2879-4669-8434-a444489cf0b5",
+     "3b008479-9cde-4ab4-b01a-5208cb014d69",
+     "d570423e-b546-4248-959a-dab36a4b12c2"
+    ],
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 0.9450980392156862,
+       "g": 0.9450980392156862,
+       "b": 0.9529411764705882,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 12,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED",
+    "clipsContent": false,
+    "backgroundColor": {
+     "r": 0.9450980392156862,
+     "g": 0.9450980392156862,
+     "b": 0.9529411764705882,
+     "a": 1
+    },
+    "layoutMode": "VERTICAL",
+    "primaryAxisAlignItems": "MIN",
+    "counterAxisAlignItems": "CENTER",
+    "padding": {
+     "top": 20,
+     "right": 20,
+     "bottom": 20,
+     "left": 20
+    },
+    "itemSpacing": 16,
+    "interactions": [],
+    "overflowScrolling": "NONE",
+    "isFlowStartingPoint": false
+   },
+   "b1b94c0b-2879-4669-8434-a444489cf0b5": {
+    "id": "b1b94c0b-2879-4669-8434-a444489cf0b5",
+    "name": "Text",
+    "type": "TEXT",
+    "x": 0,
+    "y": 0,
+    "width": 280,
+    "height": 30,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": true,
+    "parentId": "72261e3f-41af-4084-a2d7-29dab78cad2c",
+    "childIds": [],
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 0.24705882352941178,
+       "g": 0.24705882352941178,
+       "b": 0.27450980392156865,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED",
+    "characters": "In progress",
+    "fontSize": 20,
+    "fontFamily": "Inter",
+    "fontWeight": 700,
+    "fontStyle": "normal",
+    "textAlign": "LEFT",
+    "verticalAlign": "TOP",
+    "lineHeight": "AUTO",
+    "letterSpacing": 0,
+    "paragraphSpacing": 0,
+    "paragraphIndent": 0,
+    "textDecoration": "NONE",
+    "textCase": "ORIGINAL",
+    "textAutoResize": "NONE",
+    "interactions": []
+   },
+   "3b008479-9cde-4ab4-b01a-5208cb014d69": {
+    "id": "3b008479-9cde-4ab4-b01a-5208cb014d69",
+    "name": "Sticky Note",
+    "type": "STICKY",
+    "x": 0,
+    "y": 0,
+    "width": 240,
+    "height": 240,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": "72261e3f-41af-4084-a2d7-29dab78cad2c",
+    "childIds": [],
+    "text": "Task",
+    "authorName": "Template",
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 1,
+       "g": 0.9019607843137255,
+       "b": 0.5019607843137255,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED"
+   },
+   "d570423e-b546-4248-959a-dab36a4b12c2": {
+    "id": "d570423e-b546-4248-959a-dab36a4b12c2",
+    "name": "Sticky Note",
+    "type": "STICKY",
+    "x": 0,
+    "y": 0,
+    "width": 240,
+    "height": 240,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": "72261e3f-41af-4084-a2d7-29dab78cad2c",
+    "childIds": [],
+    "text": "Task",
+    "authorName": "Template",
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 1,
+       "g": 0.9019607843137255,
+       "b": 0.5019607843137255,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED"
+   },
+   "2b6c5cb1-9f6e-41fc-8664-fd9c5c9094fe": {
+    "id": "2b6c5cb1-9f6e-41fc-8664-fd9c5c9094fe",
+    "name": "Review",
+    "type": "FRAME",
+    "x": 688,
+    "y": 0,
+    "width": 320,
+    "height": 760,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": null,
+    "childIds": [
+     "d21e5ffa-1b88-44ad-83a6-493d8c3bc69a",
+     "3e7233aa-a7a1-4fdb-aad9-b1c1e8f9f2c4"
+    ],
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 0.9450980392156862,
+       "g": 0.9450980392156862,
+       "b": 0.9529411764705882,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 12,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED",
+    "clipsContent": false,
+    "backgroundColor": {
+     "r": 0.9450980392156862,
+     "g": 0.9450980392156862,
+     "b": 0.9529411764705882,
+     "a": 1
+    },
+    "layoutMode": "VERTICAL",
+    "primaryAxisAlignItems": "MIN",
+    "counterAxisAlignItems": "CENTER",
+    "padding": {
+     "top": 20,
+     "right": 20,
+     "bottom": 20,
+     "left": 20
+    },
+    "itemSpacing": 16,
+    "interactions": [],
+    "overflowScrolling": "NONE",
+    "isFlowStartingPoint": false
+   },
+   "d21e5ffa-1b88-44ad-83a6-493d8c3bc69a": {
+    "id": "d21e5ffa-1b88-44ad-83a6-493d8c3bc69a",
+    "name": "Text",
+    "type": "TEXT",
+    "x": 0,
+    "y": 0,
+    "width": 280,
+    "height": 30,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": true,
+    "parentId": "2b6c5cb1-9f6e-41fc-8664-fd9c5c9094fe",
+    "childIds": [],
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 0.24705882352941178,
+       "g": 0.24705882352941178,
+       "b": 0.27450980392156865,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED",
+    "characters": "Review",
+    "fontSize": 20,
+    "fontFamily": "Inter",
+    "fontWeight": 700,
+    "fontStyle": "normal",
+    "textAlign": "LEFT",
+    "verticalAlign": "TOP",
+    "lineHeight": "AUTO",
+    "letterSpacing": 0,
+    "paragraphSpacing": 0,
+    "paragraphIndent": 0,
+    "textDecoration": "NONE",
+    "textCase": "ORIGINAL",
+    "textAutoResize": "NONE",
+    "interactions": []
+   },
+   "3e7233aa-a7a1-4fdb-aad9-b1c1e8f9f2c4": {
+    "id": "3e7233aa-a7a1-4fdb-aad9-b1c1e8f9f2c4",
+    "name": "Sticky Note",
+    "type": "STICKY",
+    "x": 0,
+    "y": 0,
+    "width": 240,
+    "height": 240,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": "2b6c5cb1-9f6e-41fc-8664-fd9c5c9094fe",
+    "childIds": [],
+    "text": "Task",
+    "authorName": "Template",
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 1,
+       "g": 0.9019607843137255,
+       "b": 0.5019607843137255,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED"
+   },
+   "c8370bdf-d790-4d32-a181-b7b3a612ab7b": {
+    "id": "c8370bdf-d790-4d32-a181-b7b3a612ab7b",
+    "name": "Done",
+    "type": "FRAME",
+    "x": 1032,
+    "y": 0,
+    "width": 320,
+    "height": 760,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": null,
+    "childIds": [
+     "629bb7cb-f0c7-4e5a-a3e4-fb6d28380425",
+     "ad6367d9-81d4-4dcc-89ba-54e687e5d802"
+    ],
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 0.9450980392156862,
+       "g": 0.9450980392156862,
+       "b": 0.9529411764705882,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 12,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED",
+    "clipsContent": false,
+    "backgroundColor": {
+     "r": 0.9450980392156862,
+     "g": 0.9450980392156862,
+     "b": 0.9529411764705882,
+     "a": 1
+    },
+    "layoutMode": "VERTICAL",
+    "primaryAxisAlignItems": "MIN",
+    "counterAxisAlignItems": "CENTER",
+    "padding": {
+     "top": 20,
+     "right": 20,
+     "bottom": 20,
+     "left": 20
+    },
+    "itemSpacing": 16,
+    "interactions": [],
+    "overflowScrolling": "NONE",
+    "isFlowStartingPoint": false
+   },
+   "629bb7cb-f0c7-4e5a-a3e4-fb6d28380425": {
+    "id": "629bb7cb-f0c7-4e5a-a3e4-fb6d28380425",
+    "name": "Text",
+    "type": "TEXT",
+    "x": 0,
+    "y": 0,
+    "width": 280,
+    "height": 30,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": true,
+    "parentId": "c8370bdf-d790-4d32-a181-b7b3a612ab7b",
+    "childIds": [],
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 0.24705882352941178,
+       "g": 0.24705882352941178,
+       "b": 0.27450980392156865,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED",
+    "characters": "Done",
+    "fontSize": 20,
+    "fontFamily": "Inter",
+    "fontWeight": 700,
+    "fontStyle": "normal",
+    "textAlign": "LEFT",
+    "verticalAlign": "TOP",
+    "lineHeight": "AUTO",
+    "letterSpacing": 0,
+    "paragraphSpacing": 0,
+    "paragraphIndent": 0,
+    "textDecoration": "NONE",
+    "textCase": "ORIGINAL",
+    "textAutoResize": "NONE",
+    "interactions": []
+   },
+   "ad6367d9-81d4-4dcc-89ba-54e687e5d802": {
+    "id": "ad6367d9-81d4-4dcc-89ba-54e687e5d802",
+    "name": "Sticky Note",
+    "type": "STICKY",
+    "x": 0,
+    "y": 0,
+    "width": 240,
+    "height": 240,
+    "rotation": 0,
+    "opacity": 1,
+    "visible": true,
+    "locked": false,
+    "parentId": "c8370bdf-d790-4d32-a181-b7b3a612ab7b",
+    "childIds": [],
+    "text": "Task",
+    "authorName": "Template",
+    "fills": [
+     {
+      "type": "SOLID",
+      "color": {
+       "r": 1,
+       "g": 0.9019607843137255,
+       "b": 0.5019607843137255,
+       "a": 1
+      },
+      "opacity": 1,
+      "visible": true
+     }
+    ],
+    "strokes": [],
+    "cornerRadius": 0,
+    "effects": [],
+    "blendMode": "NORMAL",
+    "layoutSizingHorizontal": "FIXED",
+    "layoutSizingVertical": "FIXED"
+   }
+  },
+  "variants": [
+   {
+    "sizeId": "free",
+    "rootIds": [
+     "be1a6e77-7988-4ac3-934a-c58ae8a1eddd",
+     "72261e3f-41af-4084-a2d7-29dab78cad2c",
+     "2b6c5cb1-9f6e-41fc-8664-fd9c5c9094fe",
+     "c8370bdf-d790-4d32-a181-b7b3a612ab7b"
+    ],
+    "width": 1352,
+    "height": 760
+   }
+  ],
+  "media": []
+ }
+}

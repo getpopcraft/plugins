@@ -1,0 +1,17 @@
+{
+  "id": "popcraft-examples.arrange-grid",
+  "name": "Arrange in Grid",
+  "version": "1.0.1",
+  "description": "Lays the selected layers out in a tidy grid, row or column with even gaps, keeping their reading order. The gap is remembered.",
+  "author": "PopCraft",
+  "main": "main.js",
+  "ui": "ui.html",
+  "permissions": ["read", "write"],
+  "commands": [
+    { "id": "grid", "label": "Grid" },
+    { "id": "row", "label": "Single row" },
+    { "id": "column", "label": "Single column" }
+  ],
+  "category": "productivity",
+  "tags": ["layout", "grid", "tidy"]
+}

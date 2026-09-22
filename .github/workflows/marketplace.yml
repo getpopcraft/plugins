@@ -1,0 +1,59 @@
+# Publish the examples to the PopCraft marketplace.
+#
+# AUTH: a PopCraft personal access token with the `marketplace:publish` scope
+# (Account → Personal access tokens), stored as the repository secret POPCRAFT_TOKEN.
+# POPCRAFT_URL (a repository variable) overrides the target, e.g. a staging deployment.
+#
+# Pull requests only build and check the items. On main, plugins publish when their manifest
+# version is new (an existing version is skipped), and packs and templates publish when their
+# folder changed. Run it by hand to push everything.
+name: Marketplace
+
+on:
+  pull_request:
+    paths: ['examples/**', 'scripts/publish.mjs']
+  push:
+    branches: [main]
+    paths: ['examples/**', 'scripts/publish.mjs']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marketplace-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/publish.mjs --dry-run
+
+  publish:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: marketplace
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Publish
+        env:
+          POPCRAFT_TOKEN: ${{ secrets.POPCRAFT_TOKEN }}
+          POPCRAFT_URL: ${{ vars.POPCRAFT_URL || 'https://popcraft.app' }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "${{ github.event_name }}" = "push" ] && [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
+            node scripts/publish.mjs --changed-since "$BEFORE"
+          else
+            node scripts/publish.mjs
+          fi

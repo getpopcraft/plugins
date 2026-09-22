@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "localId": "popcraft-examples.abstract",
+    "kind": "brush",
+    "name": "Abstract",
+    "description": "Experimental marks: ribbons that twist, digital glitch blocks, bokeh light, neon streaks and a nervous scribble.",
+    "category": "fun",
+    "tags": [
+      "abstract",
+      "fx",
+      "experimental"
+    ],
+    "thumbnail": "thumbnail.svg",
+    "previews": [
+      "previews/ribbon.svg",
+      "previews/glitch.svg",
+      "previews/bokeh.svg",
+      "previews/neon-streak.svg",
+      "previews/scribble.svg"
+    ]
+  },
+  "payload": {
+    "brushes": [
+      {
+        "name": "Ribbon",
+        "basePreset": "SCRIPT",
+        "size": 40,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 60,
+        "renderMode": "VECTOR",
+        "dynamics": {
+          "spacing": 0.05,
+          "scatter": 0,
+          "count": 1,
+          "jitter": 0,
+          "stampSize": 0.55,
+          "pressureSize": false,
+          "taper": 0.1,
+          "tip": "NIB",
+          "tipFollow": false,
+          "tipAngle": 30,
+          "roundness": 0.15,
+          "goo": 0.6,
+          "settle": 0.9
+        }
+      },
+      {
+        "name": "Glitch",
+        "basePreset": "GRUNGE",
+        "size": 50,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.3,
+          "scatter": 0.5,
+          "count": 3,
+          "jitter": 0.6,
+          "stampSize": 0.25,
+          "pressureSize": true,
+          "taper": 0,
+          "tip": "SQUARE",
+          "roundness": 0.25,
+          "hueJitter": 0.4,
+          "countJitter": 0.4,
+          "settle": 0
+        }
+      },
+      {
+        "name": "Bokeh",
+        "basePreset": "AIRBRUSH_SOFT",
+        "size": 120,
+        "opacity": 0.5,
+        "hardness": 0.4,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.5,
+          "scatter": 1,
+          "count": 2,
+          "jitter": 0.7,
+          "stampSize": 0.2,
+          "pressureSize": false,
+          "taper": 0,
+          "hueJitter": 0.08,
+          "lightJitter": 0.3,
+          "settle": 0
+        },
+        "blendMode": "SCREEN"
+      },
+      {
+        "name": "Neon Streak",
+        "basePreset": "NEON",
+        "size": 16,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 50,
+        "renderMode": "VECTOR",
+        "dynamics": {
+          "spacing": 0.05,
+          "scatter": 0,
+          "count": 1,
+          "jitter": 0,
+          "stampSize": 0.5,
+          "pressureSize": false,
+          "taper": 0.6,
+          "speedSize": 0.4,
+          "goo": 0.4,
+          "settle": 0.8
+        },
+        "blendMode": "SCREEN"
+      },
+      {
+        "name": "Scribble",
+        "basePreset": "PENCIL_2B",
+        "size": 10,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 0,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.1,
+          "scatter": 0.35,
+          "count": 1,
+          "jitter": 0.3,
+          "stampSize": 0.25,
+          "pressureSize": true,
+          "taper": 0.3,
+          "rotJitter": 0.3,
+          "settle": 0
+        }
+      }
+    ]
+  }
+}

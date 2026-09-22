@@ -1,0 +1,18 @@
+{
+  "type": "dark",
+  "extends": "popcraft.comic-black",
+  "tokens": {
+    "app.bg": "#17141D",
+    "panel.bg": "#241F2C",
+    "base": "#2F2839",
+    "sunken": "#1B1722",
+    "fg": "#F4EFFA",
+    "fg.muted": "#B9B0C7",
+    "accent": "#FFED00",
+    "accent.hover": "#FFF45C",
+    "fg.onAccent": "#231F20",
+    "focusRing": "#00AEEF",
+    "canvas.selection": "#EC008C"
+  },
+  "css": "[data-pc=\"section-title\"] { text-shadow: 2px 2px 0 #EC008C; }"
+}

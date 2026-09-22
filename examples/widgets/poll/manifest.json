@@ -1,0 +1,12 @@
+{
+  "id": "popcraft-examples.poll",
+  "name": "Pow Poll",
+  "version": "1.0.0",
+  "description": "A three-way poll widget for the canvas. Click an option to vote; the bars fill in comic colours.",
+  "author": "PopCraft",
+  "main": "main.js",
+  "permissions": [],
+  "commands": [{ "id": "insert", "label": "Insert poll" }],
+  "category": "widgets",
+  "tags": ["widget", "poll", "collab"]
+}

@@ -2,13 +2,14 @@
 <html>
 <head>
   <style>
-    body { font: 12px system-ui, sans-serif; margin: 12px; color: #222; }
-    label { display: block; margin-bottom: 8px; }
-    input { width: 100%; box-sizing: border-box; padding: 6px; border: 1px solid #ccc; border-radius: 6px; margin-top: 4px; }
+    /* The editor writes its theme into this panel as --pc-* variables (and styles body, inputs and buttons
+       to match), so only layout lives here. The fallbacks keep it readable outside PopCraft. */
+    label { display: block; margin-bottom: 8px; color: var(--pc-fg-muted, #666); }
+    input { width: 100%; box-sizing: border-box; margin-top: 4px; }
+    #count { color: var(--pc-fg-subtle, #666); }
     .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px; }
-    button { padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc; background: #fff; }
-    button.primary { background: #0c8ce9; color: #fff; border-color: #0c8ce9; }
-    #count { color: #666; }
+    button { padding: 6px 12px; }
+    button.primary { background: var(--pc-accent, #0c8ce9); color: var(--pc-fg-on-accent, #fff); border-color: var(--pc-accent, #0c8ce9); }
   </style>
 </head>
 <body>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    /* The editor writes its theme into this panel as --pc-* variables (and styles body, inputs and buttons
+       to match), so only layout lives here. The fallbacks keep it readable outside PopCraft. */
+    label { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; color: var(--pc-fg-muted, #666); }
+    input { width: 90px; box-sizing: border-box; }
+    .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px; }
+    button { padding: 6px 12px; }
+    button.primary { background: var(--pc-accent, #0c8ce9); color: var(--pc-fg-on-accent, #fff); border-color: var(--pc-accent, #0c8ce9); }
+  </style>
+</head>
+<body>
+  <label>Gap (px) <input id="gap" type="number" min="0" step="1" value="16"></label>
+  <label>Columns <input id="columns" type="number" min="1" step="1" value="2"></label>
+  <div class="row">
+    <button id="cancel">Cancel</button>
+    <button id="apply" class="primary">Arrange</button>
+  </div>
+  <script>
+    var gap = document.getElementById('gap')
+    var columns = document.getElementById('columns')
+    popcraft.onmessage = function (msg) {
+      if (msg.type !== 'init') return
+      gap.value = msg.gap
+      columns.value = msg.columns
+      columns.max = msg.count
+      columns.focus(); columns.select()
+    }
+    function apply() { popcraft.postMessage({ type: 'apply', gap: gap.value, columns: columns.value }) }
+    function cancel() { popcraft.postMessage({ type: 'cancel' }) }
+    document.getElementById('apply').onclick = apply
+    document.getElementById('cancel').onclick = cancel
+    popcraft.postMessage({ type: 'ready' })
+    document.addEventListener('keydown', function (e) { if (e.key === 'Enter') apply(); if (e.key === 'Escape') cancel() })
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "localId": "popcraft-examples.elements",
+    "kind": "brush",
+    "name": "Elements",
+    "description": "Weather and fire for backgrounds: soft clouds, falling snow, slanted rain, drifting embers and a starfield.",
+    "category": "fun",
+    "tags": [
+      "nature",
+      "weather",
+      "fx"
+    ],
+    "thumbnail": "thumbnail.svg",
+    "previews": [
+      "previews/cloud-puffs.svg",
+      "previews/snowfall.svg",
+      "previews/rain.svg",
+      "previews/embers.svg",
+      "previews/starfield.svg"
+    ]
+  },
+  "payload": {
+    "brushes": [
+      {
+        "name": "Cloud Puffs",
+        "basePreset": "AIRBRUSH_SOFT",
+        "size": 160,
+        "opacity": 0.6,
+        "hardness": 0.15,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.18,
+          "scatter": 0.45,
+          "count": 4,
+          "jitter": 0.5,
+          "stampSize": 0.4,
+          "pressureSize": true,
+          "taper": 0,
+          "pressureOpacity": true,
+          "rotJitter": 1,
+          "settle": 0
+        }
+      },
+      {
+        "name": "Snowfall",
+        "basePreset": "SPATTER_STAMP",
+        "size": 120,
+        "opacity": 1,
+        "hardness": 0.6,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.4,
+          "scatter": 1.2,
+          "count": 5,
+          "jitter": 0.7,
+          "stampSize": 0.05,
+          "pressureSize": false,
+          "taper": 0,
+          "countJitter": 0.5,
+          "settle": 0
+        }
+      },
+      {
+        "name": "Rain",
+        "basePreset": "FINE_TIP",
+        "size": 90,
+        "opacity": 0.7,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.35,
+          "scatter": 1,
+          "count": 4,
+          "jitter": 0.4,
+          "stampSize": 0.04,
+          "pressureSize": false,
+          "taper": 0,
+          "tip": "NIB",
+          "tipFollow": false,
+          "tipAngle": 70,
+          "roundness": 0.12,
+          "countJitter": 0.4,
+          "settle": 0
+        }
+      },
+      {
+        "name": "Embers",
+        "basePreset": "GLIMMER",
+        "size": 70,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.3,
+          "scatter": 0.9,
+          "count": 3,
+          "jitter": 0.6,
+          "stampSize": 0.07,
+          "pressureSize": true,
+          "taper": 0,
+          "hueJitter": 0.12,
+          "lightJitter": 0.3,
+          "countJitter": 0.4,
+          "settle": 0
+        },
+        "blendMode": "SCREEN"
+      },
+      {
+        "name": "Starfield",
+        "basePreset": "STIPPLE",
+        "size": 150,
+        "opacity": 1,
+        "hardness": 0.9,
+        "smoothing": 30,
+        "renderMode": "RASTER",
+        "dynamics": {
+          "spacing": 0.5,
+          "scatter": 1.5,
+          "count": 6,
+          "jitter": 0.85,
+          "stampSize": 0.03,
+          "pressureSize": false,
+          "taper": 0,
+          "countJitter": 0.6,
+          "lightJitter": 0.3,
+          "settle": 0
+        }
+      }
+    ]
+  }
+}

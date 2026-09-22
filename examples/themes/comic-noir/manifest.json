@@ -1,0 +1,12 @@
+{
+  "id": "popcraft-examples.comic-noir",
+  "name": "Comic Noir",
+  "version": "1.0.0",
+  "description": "A semi-dark comic theme: night-time panels, ink outlines and pop-colour accents. Data only.",
+  "author": "PopCraft",
+  "contributes": {
+    "themes": [{ "id": "popcraft-examples.comic-noir.night", "label": "Comic Noir", "path": "themes/night.json" }]
+  },
+  "category": "themes",
+  "tags": ["comic", "dark", "theme-pack"]
+}

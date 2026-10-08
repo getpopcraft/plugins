@@ -42,7 +42,7 @@ One folder per marketplace kind:
 | [`themes/`](examples/themes) | Theme packs (data-only plugins) | [`comic-themes`](examples/themes/comic-themes) (two light themes), [`comic-noir`](examples/themes/comic-noir) (semi-dark) |
 | [`brushes/`](examples/brushes) | Brush packs | [`comic-inkers`](examples/brushes/comic-inkers): liner, brush pen, stipple |
 | [`shaders/`](examples/shaders) | Shader packs | [`pop-shaders`](examples/shaders/pop-shaders): Ben-Day dots, speed burst, misregistration (one `.wgsl` per shader) |
-| [`templates/`](examples/templates) | Templates | [`pop-cover`](examples/templates/pop-cover), [`halftone-quote`](examples/templates/halftone-quote), [`comic-kanban`](examples/templates/comic-kanban) |
+| [`templates/`](examples/templates) | Templates | [`pop-cover`](examples/templates/pop-cover), [`halftone-quote`](examples/templates/halftone-quote), [`comic-kanban`](examples/templates/comic-kanban), [`pixel-platformer`](examples/templates/pixel-platformer) (a playable game: layers with physics roles) |
 
 Component libraries are the one kind with no example here: a library is published from a cloud file in
 the editor (**Assets → Publish library**), not from files in a repo.

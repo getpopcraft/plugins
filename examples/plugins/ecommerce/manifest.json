@@ -15,7 +15,6 @@
       { "id": "shopify-theme", "label": "Shopify theme (.zip)", "extension": ".zip" }
     ]
   },
-  "icon": "icon.svg",
   "category": "data",
   "tags": ["ecommerce", "shopify", "store", "shop", "storefront", "next.js commerce", "products", "catalogue", "theme"]
 }

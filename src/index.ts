@@ -12,7 +12,7 @@ export { buildMainDocument, buildUIDocument, csp } from './host.js'
 export { mainApiMethods } from './runtime/main.js'
 export { MAIN_RUNTIME, UI_RUNTIME } from './generated/runtime.js'
 
-export type { PopCraftApi } from './runtime/main.js'
+export type { PopCraftApi, PopCraftCommandArgs, PopCraftPresentationAsset, PopCraftPresentationDeck, PopCraftPresentationSettings, PopCraftSlideTiming } from './runtime/main.js'
 export type { PopCraftUiApi } from './runtime/ui.js'
 
 export * from './types.js'

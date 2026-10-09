@@ -37,7 +37,7 @@ One folder per marketplace kind:
 
 | Folder | Kind | Examples |
 | --- | --- | --- |
-| [`plugins/`](examples/plugins) | Plugins | [`arrange-grid`](examples/plugins/arrange-grid) (commands, a UI, storage), [`rename-layers`](examples/plugins/rename-layers) (UI panel, events, storage), [`contrast-checker`](examples/plugins/contrast-checker) (WCAG checks, `findNodes`, `setSelection`), [`pop-palette`](examples/plugins/pop-palette) (paint styles) |
+| [`plugins/`](examples/plugins) | Plugins | [`arrange-grid`](examples/plugins/arrange-grid) (commands, a UI, storage), [`rename-layers`](examples/plugins/rename-layers) (UI panel, events, storage), [`contrast-checker`](examples/plugins/contrast-checker) (WCAG checks, `findNodes`, `setSelection`), [`pop-palette`](examples/plugins/pop-palette) (paint styles), [`storefront-preview`](examples/plugins/storefront-preview) (a File → Export format built on `getStorefront()`) |
 | [`widgets/`](examples/widgets) | Canvas widgets (plugins that register a widget) | [`vote-counter`](examples/widgets/vote-counter), [`poll`](examples/widgets/poll), [`checklist`](examples/widgets/checklist) (named handlers) |
 | [`themes/`](examples/themes) | Theme packs (data-only plugins) | [`comic-themes`](examples/themes/comic-themes) (two light themes), [`comic-noir`](examples/themes/comic-noir) (semi-dark) |
 | [`brushes/`](examples/brushes) | Brush packs | [`comic-inkers`](examples/brushes/comic-inkers): liner, brush pen, stipple |
@@ -50,6 +50,27 @@ the editor (**Assets → Publish library**), not from files in a repo.
 Install one from **Main menu → Manage plugins… → Install from file…**, with either a `.zip` of the
 folder (`manifest.json` at the root) or a single-file `.json` bundle:
 `{ "manifest": { … }, "main": "…code…", "ui": "<html>…" }`.
+
+## Importers and exporters
+
+A plugin can add a File → Import or File → Export format in its manifest:
+
+```json
+"contributes": {
+  "importers": [{ "id": "pub", "label": "Publisher (.pub)", "accept": [".pub"] }],
+  "exporters": [{ "id": "ai", "label": "Adobe Illustrator (.ai)", "extension": ".ai" }]
+}
+```
+
+An importer runs with `popcraft.importMode` and `popcraft.importFile` set, and builds the document with the
+editor methods. An exporter runs with `popcraft.exportRequest` set, renders what it needs with `exportNode`, and
+hands the file back with `popcraft.saveExport({ name, bytes })`.
+
+An exporter for a store reads the open page as a storefront with `popcraft.getStorefront()`: each page's HTML with
+the store's data marked rather than filled (`{{page.title}}`, `{{item.price}}`, lists between
+`<!-- pc:each list="Products" schema="commerce.product" as="item" -->` and `<!-- pc:end -->`, forms with
+`data-pc-action`), and the collections it reads with their schema and sample records. It turns those marks into its
+platform's templates; [`storefront-preview`](examples/plugins/storefront-preview) fills them with the samples instead.
 
 ## Publishing to the marketplace
 

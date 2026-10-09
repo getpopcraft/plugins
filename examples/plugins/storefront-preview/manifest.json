@@ -1,0 +1,24 @@
+{
+  "id": "popcraft.storefront-preview",
+  "name": "Storefront Preview",
+  "version": "1.0.0",
+  "description": "Export a storefront design as one HTML file to share: every page of the store, drawn with its sample products. A worked example of a store-template exporter built on getStorefront().",
+  "author": "PopCraft",
+  "main": "main.js",
+  "permissions": [
+    "read"
+  ],
+  "contributes": {
+    "exporters": [
+      { "id": "storefront-preview", "label": "Storefront preview (.html)", "extension": ".html" }
+    ]
+  },
+  "category": "export",
+  "tags": [
+    "storefront",
+    "ecommerce",
+    "shop",
+    "export",
+    "html"
+  ]
+}

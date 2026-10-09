@@ -61,8 +61,20 @@ export interface PopCraftExporterContribution {
  * What a plugin adds besides commands: themes (static, loaded without running the sandbox), and the File → Import and
  * File → Export formats it handles.
  */
+/** A panel docked as a tab on the side of the editor, running the plugin's UI while it is open. */
+export interface PopCraftPanelContribution {
+  id: string
+  title: string
+  /** A data: URL or a path in the package (svg, png or webp). */
+  icon?: string
+  side?: 'left' | 'right'
+  /** The command the panel starts the plugin with (default: the panel's id). */
+  command?: string
+}
+
 export interface PopCraftContributions {
   themes?: PopCraftThemeContribution[]
+  panels?: PopCraftPanelContribution[]
   importers?: PopCraftImporterContribution[]
   exporters?: PopCraftExporterContribution[]
 }

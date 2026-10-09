@@ -152,6 +152,26 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
     * `data-pc-action` forms), and its collections with their commerce schema and sample records.
     */
     getStorefront: () => rpc.call<{ name: string; pages: { name: string; route: string | null; about: string | null; html: string }[]; collections: { id: string; name: string; schema: string | null; fields: string[]; samples: Record<string, unknown>[] }[]; }>('getStorefront'),
+    /**
+    * A design's data (docs: Collections): a collection and its fields (`schema`: what it stands for, e.g.
+    * `commerce.product`, whose fields are made for it), its records, and reading them.
+    */
+    editCollection: (opts: PopCraftCommandArgs) => rpc.call<unknown>('editCollection', opts || {}),
+    editRecords: (opts: PopCraftCommandArgs) => rpc.call<unknown>('editRecords', opts || {}),
+    getRecords: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getRecords', opts || {}),
+    /** A layer as a web page's form control (a FORM's `formAction`, an INPUT's name and value), repeated per record, a page's address, its semantics. */
+    setControl: (opts: PopCraftCommandArgs) => rpc.call<unknown>('setControl', opts || {}),
+    setRepeat: (opts: PopCraftCommandArgs) => rpc.call<unknown>('setRepeat', opts || {}),
+    setRoute: (opts: PopCraftCommandArgs) => rpc.call<unknown>('setRoute', opts || {}),
+    setSemantics: (opts: PopCraftCommandArgs) => rpc.call<unknown>('setSemantics', opts || {}),
+    /** The site's environment: public settings its host reads by name when it is deployed (never a secret: the file keeps them). */
+    getSiteEnvironment: () => rpc.call<Record<string, string>>('getSiteEnvironment'),
+    setSiteEnvironment: (set: Record<string, string | null>) => rpc.call<unknown>('setSiteEnvironment', { set }),
+    /** What this plugin keeps with the open file (its settings for this design), under its own id; JSON only. */
+    getFileData: <T = unknown>(key: string) => rpc.call<T | undefined>('getFileData', { key }),
+    setFileData: (key: string, value: unknown) => rpc.call<void>('setFileData', { key, value }),
+    /** A store's project built from the open page, zipped (needs `export`): what an exporter saves with `saveExport`. */
+    getStorefrontFiles: (target: 'shopify-theme' | 'next-commerce' | 'next-commerce-store') => rpc.call<{ name: string; files: number; bytes: Uint8Array }>('getStorefrontFiles', { target }),
     getExportRequest: () => rpc.call<{ exporterId: string; extension: string; name: string; nodeIds: string[]; } | null>('getExportRequest'),
     /** Save the exporter's file (once per export request); the host enforces the contributed extension. */
     saveExport: (file: { name?: string; mimeType?: string; bytes?: Uint8Array | number[]; dataUrl?: string; }) => rpc.call<{ name: string; byteLength: number; }>('saveExport', file || {}),

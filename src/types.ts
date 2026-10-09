@@ -38,9 +38,33 @@ export interface PopCraftThemeContribution {
   path: string
 }
 
-/** Static contributions that need no code: they load without running the plugin sandbox. */
+/** A File → Import format this plugin handles. */
+export interface PopCraftImporterContribution {
+  id: string
+  label: string
+  /** Extensions (`.pub`) and/or MIME types. */
+  accept: string[]
+  /** Command run with `importMode` / `importFile` set. Defaults to the first command. */
+  command?: string
+}
+/** A File → Export format this plugin writes. */
+export interface PopCraftExporterContribution {
+  id: string
+  label: string
+  /** The saved file's extension with its dot (`.ai`). */
+  extension: string
+  /** Command run with `exportRequest` set. Defaults to the first command. */
+  command?: string
+}
+
+/**
+ * What a plugin adds besides commands: themes (static, loaded without running the sandbox), and the File → Import and
+ * File → Export formats it handles.
+ */
 export interface PopCraftContributions {
   themes?: PopCraftThemeContribution[]
+  importers?: PopCraftImporterContribution[]
+  exporters?: PopCraftExporterContribution[]
 }
 
 export interface PopCraftManifest {

@@ -11,6 +11,31 @@ import type {
   PopCraftSerialisedWidget, PopCraftWidgetDefinition, PopCraftWidgetHandler,
 } from '../widget.js'
 
+export interface PopCraftPresentationSettings {
+  voice: string; voiceModel: 'natural' | 'hd' | 'standard'; speed: number;
+  style: 'conversational' | 'corporate' | 'energetic' | 'calm' | 'documentary';
+  mood: 'uplifting' | 'ambient' | 'cinematic' | 'lofi' | 'electronic' | 'acoustic' | 'none';
+  musicModel: 'hq' | 'standard'; stingers: boolean; loudness: number; truePeak: number; beatAlign: boolean; autoAdvance: boolean;
+  musicDb: number; duckDb: number; stingerDb: number; leadInMs: number; introMs: number; tailMs: number; minSlideMs: number;
+}
+export interface PopCraftPresentationAsset {
+  mediaHash: string; name: string; durationMs: number; source: 'generated' | 'imported' | 'plugin' | 'fallback';
+  model?: string; loudness?: { lufs: number; truePeak: number }; beats?: number[]; bpm?: number | null; hitMs?: number;
+}
+export interface PopCraftSlideTiming {
+  frameId: string; index: number; start: number; duration: number; transitionMs: number;
+  voiceStart: number | null; voiceMs: number; leaveAfterMs: number; advanceAfterMs: number; hit: number | null;
+}
+export interface PopCraftPresentationDeck {
+  pageId: string; soundtrackId: string | null; settings: PopCraftPresentationSettings; total: number; trimDb: number;
+  slides: { frameId: string; index: number; name: string; notes: string; script: string; animationMs: number;
+    transition: { type: string; duration: number } | null; voice: PopCraftPresentationAsset | null; stale: boolean;
+    holdMs: number | null; timing: PopCraftSlideTiming }[];
+  music: PopCraftPresentationAsset | null; stinger: PopCraftPresentationAsset | null;
+}
+/** Arguments of an editor command method: see docs/plugins/methods.md for each one's schema. */
+export type PopCraftCommandArgs = Record<string, unknown>;
+
 function clone<T>(v: T): T {
   return (v === undefined ? {} : JSON.parse(JSON.stringify(v))) as T
 }
@@ -91,6 +116,12 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
   const popcraft = {
     /** Which menu command the user picked, or null when the plugin ran some other way. */
     command: null as string | null,
+    /** Host import mode when launched as an importer, else null. */
+    importMode: null as "new" | "into-current" | null,
+    /** Pending import file when the host handed one over, else null. */
+    importFile: null as { name: string; dataUrl: string; byteLength: number; } | null,
+    /** Pending export request (File → Export → this plugin's format), else null. */
+    exportRequest: null as { exporterId: string; extension: string; name: string; nodeIds: string[]; } | null,
 
     getSelection: () => rpc.call<PopCraftNode[]>('getSelection'),
     setSelection: (ids: string[]) => rpc.call<void>('setSelection', { ids }),
@@ -101,6 +132,108 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
     updateNode: (id: string, props: Partial<PopCraftNode>) => rpc.call<void>('updateNode', { id, props }),
     deleteNode: (id: string) => rpc.call<void>('deleteNode', { id }),
     setText: (id: string, characters: string) => rpc.call<void>('setText', { id, characters }),
+    /** Put TEXT layers on a path (another layer's outline, or their own arc, circle or wave), or tune one: brackets, alignment, placement, effect, overflow. */
+    setTextPath: (opts: { ids?: string[]; mode?: 'PATH' | 'ARC' | 'CIRCLE' | 'WAVE' | 'NONE'; pathId?: string; bend?: number; radius?: number; amplitude?: number; frequency?: number; offset?: number; endOffset?: number; flip?: boolean; align?: 'LEFT' | 'CENTER' | 'RIGHT' | 'JUSTIFY'; placement?: 'BASELINE' | 'ASCENDER' | 'DESCENDER' | 'CENTER'; baselineShift?: number; spacing?: number; effect?: 'RAINBOW' | 'SKEW' | 'RIBBON' | 'STAIR' | 'GRAVITY'; overflow?: 'CLIP' | 'VISIBLE' | 'SHRINK'; }) => rpc.call<unknown>('setTextPath', opts || {}),
+    /** Area type: flow a TEXT layer inside a closed shape, kept `inset` px in. */
+    flowTextIntoShape: (opts: { id?: string; shapeId?: string; inset?: number; fit?: 'NONE' | 'SHRINK' | 'FIT'; }) => rpc.call<unknown>('flowTextIntoShape', opts || {}),
+    /** Take TEXT layers off their path or out of their shape (or free every text linked to a path / shape). */
+    detachText: (opts?: { ids?: string[]; }) => rpc.call<unknown>('detachText', opts || {}),
+    /** Auto-size TEXT layers' type to their box, shape or path. */
+    setTextFit: (opts: { ids?: string[]; fit: 'NONE' | 'SHRINK' | 'FIT'; }) => rpc.call<unknown>('setTextFit', opts || {}),
+    createPage: (name?: string) => rpc.call<string>('createPage', name != null ? { name: String(name) } : {}),
+    setCurrentPage: (pageId: string) => rpc.call<void>('setCurrentPage', { pageId }),
+    createImage: (opts: { dataUrl?: string; bytes?: number[]; mimeType?: string; name?: string; x?: number; y?: number; width?: number; height?: number; parentId?: string; }) => rpc.call<string>('createImage', opts || {}),
+    createDocument: (opts?: { name?: string; }) => rpc.call<{ key?: string; docId: string; name: string; }>('createDocument', opts || {}),
+    getImportMode: () => rpc.call<"new" | "into-current" | null>('getImportMode'),
+    getImportFile: () => rpc.call<{ name: string; dataUrl: string; byteLength: number; } | null>('getImportFile'),
+    /**
+    * The open page as a storefront design in a neutral form, for an exporter that writes its own store's templates:
+    * each page's HTML with the store's data marked (`{{page.title}}`, `{{item.price}}`, `<!-- pc:each … -->` lists,
+    * `data-pc-action` forms), and its collections with their commerce schema and sample records.
+    */
+    getStorefront: () => rpc.call<{ name: string; pages: { name: string; route: string | null; about: string | null; html: string }[]; collections: { id: string; name: string; schema: string | null; fields: string[]; samples: Record<string, unknown>[] }[]; }>('getStorefront'),
+    getExportRequest: () => rpc.call<{ exporterId: string; extension: string; name: string; nodeIds: string[]; } | null>('getExportRequest'),
+    /** Save the exporter's file (once per export request); the host enforces the contributed extension. */
+    saveExport: (file: { name?: string; mimeType?: string; bytes?: Uint8Array | number[]; dataUrl?: string; }) => rpc.call<{ name: string; byteLength: number; }>('saveExport', file || {}),
+    /**
+    * Presentation audio (docs/plugins/presentation-audio.md): the deck's slides, notes, narration and timing; the
+    * soundtrack's settings, bed and stinger.
+    */
+    getPresentationAudio: (opts?: { pageId?: string }) => rpc.call<PopCraftPresentationDeck>('getPresentationAudio', opts || {}),
+    /** Change the soundtrack's settings (voice, style, mood, loudness, beat alignment, levels) and re-time it. */
+    setPresentationAudioSettings: (opts: { pageId?: string } & Partial<PopCraftPresentationSettings>) => rpc.call<{ soundtrackId: string | null; settings: PopCraftPresentationSettings; total: number }>('setPresentationAudioSettings', opts || {}),
+    /** Put a sound in (a slide's narration, the bed or the stinger): bytes are normalised to the soundtrack's target and stored. */
+    setPresentationAudioClip: (opts: { pageId?: string; role: 'voice' | 'music' | 'stinger'; frameId?: string; bytes?: Uint8Array | number[]; mediaHash?: string; url?: string; name?: string; normalize?: boolean; bpm?: number; beats?: number[]; hitMs?: number }) => rpc.call<{ soundtrackId: string | null; asset: PopCraftPresentationAsset; total: number; mix: { lufs: number; truePeak: number } | null }>('setPresentationAudioClip', opts || {}),
+    removePresentationAudioClip: (opts: { pageId?: string; role: 'voice' | 'music' | 'stinger'; frameId?: string }) => rpc.call<{ total: number }>('removePresentationAudioClip', opts || {}),
+    /** Re-time: fixed slide lengths (ms, null clears) and beat-aligned changes. */
+    setPresentationTiming: (opts: { pageId?: string; holds?: Record<string, number | null>; beatAlign?: boolean }) => rpc.call<{ total: number; slides: PopCraftSlideTiming[] }>('setPresentationTiming', opts || {}),
+    /** The mix as the export carries it: loudness, true peak, and (wav: true) the 48 kHz stereo WAV. */
+    getPresentationMix: (opts?: { pageId?: string; wav?: boolean; range?: [number, number] }) => rpc.call<{ lufs: number | null; truePeak: number | null; target?: number; ceiling?: number; durationMs: number; sampleRate?: number; wav?: Uint8Array }>('getPresentationMix', opts || {}),
+    /** Ask the user to generate with AI (the panel opens with the request filled in; the user decides). */
+    requestPresentationAudio: (opts?: { pageId?: string; what?: 'all' | 'voice' | 'music' | 'stingers'; slides?: string[] } & Partial<PopCraftPresentationSettings>) => rpc.call<{ status: 'generated'; summary: string } | { status: 'declined' } | { status: 'failed'; error: string }>('requestPresentationAudio', opts || {}),
+    /** Editor commands: each takes the arguments documented in docs/plugins/methods.md (the agent tool of the same purpose). */
+    moveNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('moveNodes', opts || {}),
+    resizeNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('resizeNodes', opts || {}),
+    renameNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('renameNodes', opts || {}),
+    reparentNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('reparentNodes', opts || {}),
+    duplicateNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('duplicateNodes', opts || {}),
+    groupNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('groupNodes', opts || {}),
+    ungroupNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('ungroupNodes', opts || {}),
+    alignNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('alignNodes', opts || {}),
+    distributeNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('distributeNodes', opts || {}),
+    flipNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('flipNodes', opts || {}),
+    rotateNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('rotateNodes', opts || {}),
+    reorderNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('reorderNodes', opts || {}),
+    setLocked: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setLocked', opts || {}),
+    setVisible: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setVisible', opts || {}),
+    setAutoLayout: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setAutoLayout', opts || {}),
+    importSvg: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('importSvg', opts || {}),
+    measureNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('measureNodes', opts || {}),
+    setFills: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setFills', opts || {}),
+    setStrokes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setStrokes', opts || {}),
+    setEffects: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setEffects', opts || {}),
+    replaceColor: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('replaceColor', opts || {}),
+    setTypography: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setTypography', opts || {}),
+    applyStyle: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('applyStyle', opts || {}),
+    createComponent: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('createComponent', opts || {}),
+    createInstance: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('createInstance', opts || {}),
+    renamePage: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('renamePage', opts || {}),
+    getDocumentOutline: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getDocumentOutline', opts || {}),
+    setPageSetup: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setPageSetup', opts || {}),
+    setShowAdvance: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setShowAdvance', opts || {}),
+    booleanOperation: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('booleanOperation', opts || {}),
+    flattenNodes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('flattenNodes', opts || {}),
+    outlineStroke: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('outlineStroke', opts || {}),
+    setMask: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setMask', opts || {}),
+    setMaskType: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setMaskType', opts || {}),
+    shapeBuilder: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('shapeBuilder', opts || {}),
+    setKeyframes: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setKeyframes', opts || {}),
+    getAnimation: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getAnimation', opts || {}),
+    getCompositions: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getCompositions', opts || {}),
+    editBehaviours: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editBehaviours', opts || {}),
+    setTimeline: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setTimeline', opts || {}),
+    setLayerTiming: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setLayerTiming', opts || {}),
+    editTextAnimation: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editTextAnimation', opts || {}),
+    edit3DScene: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('edit3DScene', opts || {}),
+    setInstancePlayback: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setInstancePlayback', opts || {}),
+    editComponentProperty: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editComponentProperty', opts || {}),
+    setShaderFill: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setShaderFill', opts || {}),
+    createComposition: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('createComposition', opts || {}),
+    editComposition: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editComposition', opts || {}),
+    editStateMachine: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editStateMachine', opts || {}),
+    getStateMachine: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getStateMachine', opts || {}),
+    applyMotionPreset: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('applyMotionPreset', opts || {}),
+    staggerMotion: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('staggerMotion', opts || {}),
+    createMotionComponent: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('createMotionComponent', opts || {}),
+    addAudio: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('addAudio', opts || {}),
+    editFrameAudio: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editFrameAudio', opts || {}),
+    editVideoClip: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editVideoClip', opts || {}),
+    detectAudioOnsets: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('detectAudioOnsets', opts || {}),
+    cutToBeat: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('cutToBeat', opts || {}),
+    editPrototype: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editPrototype', opts || {}),
+    usePresentationFallbackAudio: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('usePresentationFallbackAudio', opts || {}),
+    /** Bring a Lottie, PDF or PopCraft file into the open document (the `importFile` field is the file an importer was handed). */
+    importDocumentFile: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('importDocumentFile', opts || {}),
 
     getStyles: () => rpc.call<unknown[]>('getStyles'),
     createPaintStyle: (name: string, paints: PopCraftPaint[]) => rpc.call<string>('createPaintStyle', { name, paints }),
@@ -151,7 +284,12 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
     off: <E extends keyof PopCraftEvents>(event: E, cb: (data: PopCraftEvents[E]) => void) => rpc.off(event as string, cb),
   }
 
-  rpc.on('init', (data: { command: string | null }) => { popcraft.command = data.command })
+  rpc.on('init', (data: { command: string | null; importMode?: typeof popcraft.importMode; importFile?: typeof popcraft.importFile; exportRequest?: typeof popcraft.exportRequest }) => {
+    popcraft.command = data.command
+    popcraft.importMode = data.importMode ?? null
+    popcraft.importFile = data.importFile ?? null
+    popcraft.exportRequest = data.exportRequest ?? null
+  })
   return popcraft
 }
 

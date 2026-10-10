@@ -1,7 +1,7 @@
 {
   "id": "popcraft.ecommerce",
   "name": "Ecommerce",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Design a store that sells. Connect a Shopify store and browse its real catalogue by category, product or search; place its pictures on the page or fill the design's products with them; make any design a store and see what it still needs; export a Shopify theme. Publish › Store deploys it as a Next.js Commerce store.",
   "author": "PopCraft",
   "main": "main.js",

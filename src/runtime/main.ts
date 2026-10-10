@@ -164,6 +164,9 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
     setRepeat: (opts: PopCraftCommandArgs) => rpc.call<unknown>('setRepeat', opts || {}),
     setRoute: (opts: PopCraftCommandArgs) => rpc.call<unknown>('setRoute', opts || {}),
     setSemantics: (opts: PopCraftCommandArgs) => rpc.call<unknown>('setSemantics', opts || {}),
+    /** Which record layers are about (one product, picked from a collection), and which of its fields a layer's words, picture or an instance's properties follow. */
+    setRecord: (opts: PopCraftCommandArgs) => rpc.call<unknown>('setRecord', opts || {}),
+    bindField: (opts: PopCraftCommandArgs) => rpc.call<unknown>('bindField', opts || {}),
     /** The site's environment: public settings its host reads by name when it is deployed (never a secret: the file keeps them). */
     getSiteEnvironment: () => rpc.call<Record<string, string>>('getSiteEnvironment'),
     setSiteEnvironment: (set: Record<string, string | null>) => rpc.call<unknown>('setSiteEnvironment', { set }),

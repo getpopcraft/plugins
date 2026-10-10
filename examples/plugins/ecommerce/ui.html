@@ -20,6 +20,8 @@
     .card .t { padding: 4px 6px; font-size: 11px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .card .p { padding: 0 6px 5px; font-size: 11px; color: var(--pc-fg-muted, #666); }
     .card:hover { border-color: var(--pc-accent, #0c8ce9); }
+    .card .place { position: absolute; top: 4px; right: 4px; padding: 1px 6px; font-size: 11px; opacity: 0; }
+    .card:hover .place { opacity: 1; }
     .list { list-style: none; margin: 0; padding: 0; }
     .list li { display: flex; gap: 6px; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid var(--pc-border, #eee); }
     .list li .mark { width: 14px; flex: none; }
@@ -58,7 +60,7 @@
       <label>Show <input id="first" type="number" min="1" max="100" value="12"></label>
     </div>
     <div class="row"><button id="load" class="primary">Show products</button><button id="use" title="Fill the design's products (and categories) with these">Use in the design</button></div>
-    <p class="hint">Click a picture to place it on the page.</p>
+    <p class="hint">Select layers on the page, then click a product: they show it — its picture, title and price, and a product card's properties — and stay linked to it. <b>+</b> places just its picture.</p>
     <div id="grid" class="grid"></div>
   </div>
 
@@ -100,14 +102,16 @@
         for (const p of shown) {
           const card = document.createElement('div')
           card.className = 'card'
-          card.title = `Place ${p.title} on the page`
+          card.title = `Show ${p.title} in the selected layers`
           const img = document.createElement('img')
           if (p.image) { const u = new URL(p.image); u.searchParams.set('width', '240'); img.src = u.href }
           img.alt = p.image_alt
           const t = document.createElement('div'); t.className = 't'; t.textContent = p.title
           const pr = document.createElement('div'); pr.className = 'p'; pr.textContent = p.price
-          card.append(img, t, pr)
-          card.onclick = () => send({ type: 'place', product: p })
+          const place = document.createElement('button'); place.className = 'place'; place.textContent = '+'; place.title = `Place the picture of ${p.title}`
+          place.onclick = e => { e.stopPropagation(); send({ type: 'place', product: p }) }
+          card.append(img, t, pr, place)
+          card.onclick = () => { const { width, height, ...values } = p; send({ type: 'link', product: values }) }
           grid.append(card)
         }
       }

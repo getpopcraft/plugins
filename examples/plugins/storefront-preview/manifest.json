@@ -13,7 +13,7 @@
       { "id": "storefront-preview", "label": "Storefront preview (.html)", "extension": ".html" }
     ]
   },
-  "category": "export",
+  "category": "import-export",
   "tags": [
     "storefront",
     "ecommerce",

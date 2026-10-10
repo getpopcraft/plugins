@@ -64,6 +64,13 @@ function buildPlugin(dir) {
   const themes = manifest.contributes?.themes ?? []
   if (themes.length) bundle.themes = Object.fromEntries(themes.map(t => [t.path, readJson(join(dir, t.path))]))
   if (manifest.icon) manifest.icon = dataUrl(dir, manifest.icon)
+  // A .json bundle carries no files: a panel's icon goes inline, base64 (the editor takes no other data: icon).
+  for (const panel of manifest.contributes?.panels ?? []) {
+    if (!panel.icon || panel.icon.startsWith('data:')) continue
+    const type = MIME[extname(panel.icon).toLowerCase()]
+    if (!type || type === 'image/jpeg') throw new Error(`${panel.icon}: a panel icon is .svg, .png or .webp`)
+    panel.icon = `data:${type};base64,${readFileSync(join(dir, panel.icon)).toString('base64')}`
+  }
   return { path: '/api/v1/plugins', label: `${manifest.id}@${manifest.version}`, body: bundle }
 }
 

@@ -83,6 +83,8 @@
         $('catalogue').hidden = !msg.store
         if (msg.store) { $('shop').textContent = `${msg.store.name} (${msg.store.domain})`; send({ type: 'query', query: query() }) }
         else $('grid').textContent = ''
+        // The store last connected on this account, so another file connects in one click.
+        if (!msg.store && msg.remembered && !$('domain').value) { $('domain').value = msg.remembered.domain; $('token').value = msg.remembered.token }
       }
       if (msg.type === 'categories') {
         const sel = $('category'), keep = sel.value

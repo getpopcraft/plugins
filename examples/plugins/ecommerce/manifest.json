@@ -1,20 +1,44 @@
 {
   "id": "popcraft.ecommerce",
   "name": "Ecommerce",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Design a store that sells. Connect a Shopify store and browse its real catalogue by category, product or search; place its pictures on the page or fill the design's products with them; make any design a store and see what it still needs; export a Shopify theme. Publish › Store deploys it as a Next.js Commerce store.",
   "author": "PopCraft",
   "main": "main.js",
   "ui": "ui.html",
-  "permissions": ["read", "write", "export", "network"],
+  "permissions": [
+    "read",
+    "write",
+    "export",
+    "network"
+  ],
   "contributes": {
     "panels": [
-      { "id": "store", "title": "Store", "icon": "icon.svg", "side": "right" }
+      {
+        "id": "store",
+        "title": "Store",
+        "icon": "icon.svg",
+        "side": "right"
+      }
     ],
     "exporters": [
-      { "id": "shopify-theme", "label": "Shopify theme (.zip)", "extension": ".zip" }
+      {
+        "id": "shopify-theme",
+        "label": "Shopify theme (.zip)",
+        "extension": ".zip"
+      }
     ]
   },
   "category": "data",
-  "tags": ["ecommerce", "shopify", "store", "shop", "storefront", "next-commerce", "products", "catalogue", "theme"]
+  "tags": [
+    "ecommerce",
+    "shopify",
+    "store",
+    "shop",
+    "storefront",
+    "next-commerce",
+    "products",
+    "catalogue",
+    "theme"
+  ]
 }

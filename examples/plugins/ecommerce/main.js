@@ -12,6 +12,7 @@
 const API_VERSION = '2025-07'
 /** What the plugin keeps with the open file (popcraft.setFileData): the store this design sells from. */
 const STORE_KEY = 'store'
+const REMEMBER_KEY = 'last-store'
 
 // ─── Shopify ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -197,7 +198,7 @@ async function panel() {
     try {
       switch (msg.type) {
         case 'ready':
-          say('store', { store: store && { domain: store.domain, name: store.name } })
+          say('store', { store: store && { domain: store.domain, name: store.name }, remembered: store ? null : await popcraft.storage.get(REMEMBER_KEY) })
           if (store) say('categories', { categories: await categories(store) })
           say('checklist', { items: await checklist() })
           break
@@ -210,6 +211,8 @@ async function panel() {
           const d = await shopify(next, '{ shop { name } }')
           store = { ...next, name: d.shop.name }
           await popcraft.setFileData(STORE_KEY, store)
+          // Remembered on this account too (plugin storage, on this device), to fill the form in the next file.
+          await popcraft.storage.set(REMEMBER_KEY, { domain, token })
           // What Publish › Store deploys with: the store's address and public token, as the site environment.
           await popcraft.setSiteEnvironment({ SHOPIFY_STORE_DOMAIN: domain, SHOPIFY_STOREFRONT_ACCESS_TOKEN: token })
           say('store', { store: { domain, name: store.name } })

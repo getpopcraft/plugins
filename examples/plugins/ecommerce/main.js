@@ -114,11 +114,54 @@ async function collectionFor(schema) {
   return store.collections.find(c => c.schema === schema) ?? null
 }
 
-/** Replace a collection's records with `rows` (values by field key). */
-async function replaceRecords(collection, rows) {
-  const have = /** @type {{ records?: { id: string }[] }} */ (await popcraft.getRecords({ collection: collection.id }))
-  const ids = (have?.records ?? []).map(r => r.id)
-  await popcraft.editRecords({ collection: collection.id, remove: ids, upsert: rows.map(values => ({ values })) })
+/**
+ * Make a collection's records `rows` (values by field key), matched by handle: a record the design already has keeps
+ * its id, so the layers linked to it (set_record) stay linked, and only the others are removed. `keep` leaves the
+ * rest in place (adding one product).
+ */
+async function syncRecords(collection, rows, keep = false) {
+  const have = /** @type {{ records?: { id: string, values: Record<string, unknown> }[] }} */ (await popcraft.getRecords({ collection: collection.id, limit: 200 }))
+  const byHandle = new Map((have?.records ?? []).map(r => [String(r.values.handle ?? ''), r.id]))
+  const upsert = rows.map(values => ({ ...(byHandle.has(values.handle) ? { id: byHandle.get(values.handle) } : {}), values }))
+  const wanted = new Set(rows.map(r => r.handle))
+  const remove = keep ? [] : (have?.records ?? []).filter(r => !wanted.has(String(r.values.handle ?? ''))).map(r => r.id)
+  await popcraft.editRecords({ collection: collection.id, ...(remove.length ? { remove } : {}), upsert })
+}
+
+/** Field keys a layer shows of a product, by what the layer or a component property is called. */
+const LINKS = [[/title|name/i, 'title'], [/price/i, 'price'], [/image|picture|photo|cover/i, 'image'], [/description|body/i, 'description']]
+
+/**
+ * The selected layers show `product`: it is put in the design's Products (or kept up to date there), the layers are
+ * about it, and what they show follows its fields — a picture its picture, a text by its name, a component's TEXT
+ * and IMAGE properties by theirs. What a layer already follows is left as it is.
+ */
+async function link(product) {
+  const col = await collectionFor('commerce.product')
+  if (!col) throw new Error('This design has no products collection: Make it a store first')
+  const ids = await popcraft.getSelection()
+  if (!ids.length) throw new Error('Select the layers that should show this product first')
+  await syncRecords(col, [product], true)
+  await popcraft.setRecord({ ids, collection: col.id, record: product.handle })
+  let bound = 0
+  for (const id of ids) {
+    const node = await popcraft.getNode(id)
+    if (!node) continue
+    const has = node.boundExpressions ?? {}
+    const field = name => LINKS.find(([re]) => re.test(name))?.[1]
+    if (node.type === 'IMAGE' && !has.imageUrl) { await popcraft.bindField({ ids: [id], property: 'picture', field: 'image' }); bound++ }
+    if (node.type === 'TEXT' && !has.characters && field(node.name)) { await popcraft.bindField({ ids: [id], property: 'text', field: field(node.name) }); bound++ }
+    if (node.type === 'INSTANCE') {
+      const main = await popcraft.getNode(node.mainComponentId)
+      const set = main?.parentId ? await popcraft.getNode(main.parentId) : null
+      const defs = (set?.type === 'COMPONENT_SET' ? set : main)?.componentPropertyDefinitions ?? {}
+      for (const [name, def] of Object.entries(defs)) {
+        const f = (def.type === 'IMAGE' ? 'image' : def.type === 'TEXT' ? field(name) : undefined)
+        if (f && !has[`prop:${name}`]) { await popcraft.bindField({ ids: [id], property: name, field: f }); bound++ }
+      }
+    }
+  }
+  return bound
 }
 
 /** Make the store's collections the design is missing, each with samples (or the connected store's products). */
@@ -131,7 +174,7 @@ async function makeStore(store) {
     let rows = c.samples
     if (store && c.schema === 'commerce.product') rows = (await products(store, { first: 6 })).map(productValues)
     if (store && c.schema === 'commerce.collection') rows = (await categories(store)).slice(0, 6).map(x => ({ title: x.title, handle: x.handle, url: `/search/${x.handle}`, description: x.description }))
-    if (col && rows.length) await replaceRecords(col, rows)
+    if (col && rows.length) await syncRecords(col, rows)
     made.push(c.name)
   }
   return made
@@ -242,13 +285,18 @@ async function panel() {
           await popcraft.setSelection([id])
           break
         }
+        case 'link': {
+          const bound = await link(msg.product)
+          await popcraft.notify(`Shows ${msg.product.title}${bound ? `: ${bound} ${bound === 1 ? 'property follows' : 'properties follow'} it` : ''}`)
+          break
+        }
         case 'use': {
           const col = await collectionFor('commerce.product')
           if (!col) throw new Error('This design has no products collection: Make it a store first')
-          await replaceRecords(col, msg.products)
+          await syncRecords(col, msg.products)
           if (msg.categories && store) {
             const cats = await collectionFor('commerce.collection')
-            if (cats) await replaceRecords(cats, (await categories(store)).slice(0, 12).map(x => ({ title: x.title, handle: x.handle, url: `/search/${x.handle}`, description: x.description })))
+            if (cats) await syncRecords(cats, (await categories(store)).slice(0, 12).map(x => ({ title: x.title, handle: x.handle, url: `/search/${x.handle}`, description: x.description })))
           }
           await popcraft.notify(`The design shows ${msg.products.length} of your store's products`)
           break

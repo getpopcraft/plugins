@@ -150,6 +150,27 @@ export interface PopCraftExportOptions {
   scale?: number
 }
 
+/** What `popcraft.upload` sends. */
+export interface PopCraftUploadOptions {
+  /** The file: bytes (an `exportNode` result, say) or text. */
+  body: Uint8Array | ArrayBuffer | string
+  /** Defaults to `PUT`, the verb presigned storage URLs expect. */
+  method?: 'PUT' | 'POST'
+  /** Sent as the request's `Content-Type`. */
+  contentType?: string
+  /** Extra request headers, such as one a storage service asks for. */
+  headers?: Record<string, string>
+}
+
+/** The server's answer to `popcraft.upload`. */
+export interface PopCraftUploadResult {
+  ok: boolean
+  status: number
+  headers: Record<string, string>
+  /** The response body as text (parse it yourself if it is JSON). */
+  body: string
+}
+
 export interface PopCraftShowUIOptions {
   width?: number
   height?: number

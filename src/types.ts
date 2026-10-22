@@ -14,7 +14,8 @@ export const ALL_PERMISSIONS: readonly PopCraftPermission[] = ['read', 'write', 
 
 export type PopCraftNodeType =
   | 'RECTANGLE' | 'ELLIPSE' | 'POLYGON' | 'STAR' | 'LINE' | 'ARROW'
-  | 'FRAME' | 'SECTION' | 'TEXT' | 'STICKY' | 'VECTOR' | 'WIDGET'
+  | 'FRAME' | 'SECTION' | 'SLICE' | 'GROUP' | 'TEXT' | 'STICKY' | 'VECTOR' | 'BOOLEAN' | 'WIDGET'
+  | 'IMAGE' | 'COMPONENT' | 'COMPONENT_SET' | 'INSTANCE' | 'PIXEL_GRID' | 'RASTER'
 
 export interface PopCraftCommand {
   /** Passed to the plugin as `popcraft.command`. */

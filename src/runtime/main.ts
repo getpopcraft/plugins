@@ -5,7 +5,8 @@
 import { createRpcClient, type RpcClient } from './rpc.js'
 import type {
   PopCraftEvents, PopCraftExportOptions, PopCraftFindQuery, PopCraftNode, PopCraftNodeType,
-  PopCraftPage, PopCraftPaint, PopCraftShowUIOptions, PopCraftVariables,
+  PopCraftPage, PopCraftPaint, PopCraftShowUIOptions, PopCraftUploadOptions, PopCraftUploadResult,
+  PopCraftVariables,
 } from '../types.js'
 import type {
   PopCraftSerialisedWidget, PopCraftWidgetDefinition, PopCraftWidgetHandler,
@@ -265,6 +266,20 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
 
     exportNode: (id: string, options?: PopCraftExportOptions) => rpc.call<Uint8Array | string>('exportNode', { id, options: options || {} }),
     openExternal: (url: string) => rpc.call<void>('openExternal', { url }),
+    /**
+     * Send a file to an https URL. PopCraft makes the request, not the sandbox, so it works for files of
+     * any size the server accepts, including straight to a presigned storage URL. Needs `network`.
+     */
+    upload: (url: string, options: PopCraftUploadOptions) => {
+      const body = options.body instanceof ArrayBuffer ? new Uint8Array(options.body) : options.body
+      return rpc.call<PopCraftUploadResult>('upload', {
+        url,
+        body,
+        method: options.method,
+        contentType: options.contentType,
+        headers: options.headers,
+      })
+    },
     notify: (message: string, options?: { error?: boolean }) => rpc.call<void>('notify', { message: String(message), error: !!(options && options.error) }),
 
     showUI: (options?: PopCraftShowUIOptions) => rpc.call<void>('showUI', options || {}),

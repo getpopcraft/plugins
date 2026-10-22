@@ -129,6 +129,7 @@ async function syncRecords(collection, rows, keep = false) {
 }
 
 /** Field keys a layer shows of a product, by what the layer or a component property is called. */
+/** @type {[RegExp, string][]} */
 const LINKS = [[/title|name/i, 'title'], [/price/i, 'price'], [/image|picture|photo|cover/i, 'image'], [/description|body/i, 'description']]
 
 /**
@@ -139,7 +140,8 @@ const LINKS = [[/title|name/i, 'title'], [/price/i, 'price'], [/image|picture|ph
 async function link(product) {
   const col = await collectionFor('commerce.product')
   if (!col) throw new Error('This design has no products collection: Make it a store first')
-  const ids = await popcraft.getSelection()
+  // getSelection gives nodes; setRecord and bindField take their ids.
+  const ids = (await popcraft.getSelection()).map(n => n.id)
   if (!ids.length) throw new Error('Select the layers that should show this product first')
   await syncRecords(col, [product], true)
   await popcraft.setRecord({ ids, collection: col.id, record: product.handle })
@@ -147,12 +149,12 @@ async function link(product) {
   for (const id of ids) {
     const node = await popcraft.getNode(id)
     if (!node) continue
-    const has = node.boundExpressions ?? {}
+    const has = /** @type {Record<string, unknown>} */ (node.boundExpressions ?? {})
     const field = name => LINKS.find(([re]) => re.test(name))?.[1]
     if (node.type === 'IMAGE' && !has.imageUrl) { await popcraft.bindField({ ids: [id], property: 'picture', field: 'image' }); bound++ }
     if (node.type === 'TEXT' && !has.characters && field(node.name)) { await popcraft.bindField({ ids: [id], property: 'text', field: field(node.name) }); bound++ }
     if (node.type === 'INSTANCE') {
-      const main = await popcraft.getNode(node.mainComponentId)
+      const main = await popcraft.getNode(String(node.mainComponentId))
       const set = main?.parentId ? await popcraft.getNode(main.parentId) : null
       const defs = (set?.type === 'COMPONENT_SET' ? set : main)?.componentPropertyDefinitions ?? {}
       for (const [name, def] of Object.entries(defs)) {

@@ -14,7 +14,8 @@ export const ALL_PERMISSIONS: readonly PopCraftPermission[] = ['read', 'write', 
 
 export type PopCraftNodeType =
   | 'RECTANGLE' | 'ELLIPSE' | 'POLYGON' | 'STAR' | 'LINE' | 'ARROW'
-  | 'FRAME' | 'SECTION' | 'TEXT' | 'STICKY' | 'VECTOR' | 'WIDGET'
+  | 'FRAME' | 'SECTION' | 'SLICE' | 'GROUP' | 'TEXT' | 'STICKY' | 'VECTOR' | 'BOOLEAN' | 'WIDGET'
+  | 'IMAGE' | 'COMPONENT' | 'COMPONENT_SET' | 'INSTANCE' | 'PIXEL_GRID' | 'RASTER'
 
 export interface PopCraftCommand {
   /** Passed to the plugin as `popcraft.command`. */
@@ -148,6 +149,27 @@ export interface PopCraftExportOptions {
   format?: PopCraftExportFormat
   /** Pixel scale for raster formats. */
   scale?: number
+}
+
+/** What `popcraft.upload` sends. */
+export interface PopCraftUploadOptions {
+  /** The file: bytes (an `exportNode` result, say) or text. */
+  body: Uint8Array | ArrayBuffer | string
+  /** Defaults to `PUT`, the verb presigned storage URLs expect. */
+  method?: 'PUT' | 'POST'
+  /** Sent as the request's `Content-Type`. */
+  contentType?: string
+  /** Extra request headers, such as one a storage service asks for. */
+  headers?: Record<string, string>
+}
+
+/** The server's answer to `popcraft.upload`. */
+export interface PopCraftUploadResult {
+  ok: boolean
+  status: number
+  headers: Record<string, string>
+  /** The response body as text (parse it yourself if it is JSON). */
+  body: string
 }
 
 export interface PopCraftShowUIOptions {

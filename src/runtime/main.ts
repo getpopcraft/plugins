@@ -244,6 +244,13 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
     setShaderFill: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setShaderFill', opts || {}),
     createComposition: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('createComposition', opts || {}),
     editComposition: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editComposition', opts || {}),
+    /**
+     * Sequences (Edit mode): a composition as a multi-track timeline — V1 main scenes, V2… layered scenes / videos / stills,
+     * A1… audio. `editSequence({ id, op })` cuts, trims, slips, rolls, slides, places, stretches, blends, mixes and ducks
+     * (docs/plugins/methods.md); `getSequence({ id? })` reads it by track.
+     */
+    editSequence: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editSequence', opts || {}),
+    getSequence: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getSequence', opts || {}),
     editStateMachine: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editStateMachine', opts || {}),
     getStateMachine: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getStateMachine', opts || {}),
     applyMotionPreset: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('applyMotionPreset', opts || {}),

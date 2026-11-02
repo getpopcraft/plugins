@@ -251,6 +251,16 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
      */
     editSequence: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editSequence', opts || {}),
     getSequence: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getSequence', opts || {}),
+    /** A title, lower third or subtitle as a clip on a track above V1 (`{ id?, text, style?, track?, start?, length? }`). */
+    addTitle: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('addTitle', opts || {}),
+    /** Clips on V2 and up nested into a new sequence; `multicam: true` makes them camera angles (`{ id?, clips, multicam? }`). */
+    nestClips: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('nestClips', opts || {}),
+    /** A multicam clip's angles lined up by their sound (`{ id?, clip }`). */
+    syncAngles: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('syncAngles', opts || {}),
+    /** Audio clips brought to one peak level (`{ id?, clips?, to? }`, dBFS, default −1). */
+    normalizeAudio: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('normalizeAudio', opts || {}),
+    /** Captions from the sequence's own speech, with word timings (`{ id?, language? }`); spends the user's AI credits. */
+    transcribeSequence: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('transcribeSequence', opts || {}),
     editStateMachine: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editStateMachine', opts || {}),
     getStateMachine: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getStateMachine', opts || {}),
     applyMotionPreset: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('applyMotionPreset', opts || {}),

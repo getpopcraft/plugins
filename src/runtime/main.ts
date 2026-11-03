@@ -5,7 +5,7 @@
 import { createRpcClient, type RpcClient } from './rpc.js'
 import type {
   PopCraftEvents, PopCraftExportOptions, PopCraftFindQuery, PopCraftNode, PopCraftNodeType,
-  PopCraftPage, PopCraftPaint, PopCraftShowUIOptions, PopCraftUploadOptions, PopCraftUploadResult,
+  PopCraftPage, PopCraftPaint, PopCraftPanelIconOptions, PopCraftShowUIOptions, PopCraftUploadOptions, PopCraftUploadResult,
   PopCraftVariables,
 } from '../types.js'
 import type {
@@ -301,6 +301,11 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
 
     showUI: (options?: PopCraftShowUIOptions) => rpc.call<void>('showUI', options || {}),
     hideUI: () => rpc.call<void>('hideUI'),
+    /**
+     * Change the rail icon of one of this plugin's panels while it runs, e.g. to show a connection's state. Reset when
+     * the plugin stops.
+     */
+    setPanelIcon: (options: PopCraftPanelIconOptions) => rpc.call<void>('setPanelIcon', options || {}),
     /** Ends the run. The optional message is shown as a notification. */
     closePlugin: (message?: string) => rpc.call<void>('closePlugin', { message }),
 

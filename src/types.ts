@@ -179,6 +179,16 @@ export interface PopCraftShowUIOptions {
   visible?: boolean
 }
 
+/** `popcraft.setPanelIcon`: the rail icon of one of the plugin's sidebar panels (`contributes.panels`). */
+export interface PopCraftPanelIconOptions {
+  /** The panel's id; defaults to the plugin's first panel. */
+  panel?: string
+  /** A `data:image/svg+xml`, png or webp URL (at most 64 KB). Omit or pass null to go back to the manifest icon. */
+  icon?: string | null
+  /** Draw the image in its own colours. Default false: its shape is filled with the rail's text colour, like the built-in icons. */
+  color?: boolean
+}
+
 /** Events a plugin can subscribe to with `popcraft.on`. */
 export interface PopCraftEvents {
   selectionchange: { ids: string[] }

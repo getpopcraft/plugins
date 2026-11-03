@@ -259,8 +259,6 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
     syncAngles: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('syncAngles', opts || {}),
     /** Audio clips brought to one peak level (`{ id?, clips?, to? }`, dBFS, default −1). */
     normalizeAudio: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('normalizeAudio', opts || {}),
-    /** Captions from the sequence's own speech, with word timings (`{ id?, language? }`); spends the user's AI credits. */
-    transcribeSequence: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('transcribeSequence', opts || {}),
     editStateMachine: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editStateMachine', opts || {}),
     getStateMachine: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getStateMachine', opts || {}),
     applyMotionPreset: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('applyMotionPreset', opts || {}),

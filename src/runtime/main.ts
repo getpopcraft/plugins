@@ -242,6 +242,16 @@ export function createMainApi(rpc: RpcClient = createRpcClient()) {
     setInstancePlayback: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setInstancePlayback', opts || {}),
     editComponentProperty: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editComponentProperty', opts || {}),
     setShaderFill: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('setShaderFill', opts || {}),
+    /** A node shader built a step at a time: `{ id, fill?, op }` (create, addNode, connect, setInput, setOption, …; docs/plugins/methods.md). */
+    editShaderGraph: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editShaderGraph', opts || {}),
+    /** Shader assets, reused like images: save `{ id, fill?, name? }`, import `{ fileName, text }` (.wgsl / graph .json), apply `{ asset, id | sequence+clip }`, remove, list. */
+    saveShaderAsset: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('saveShaderAsset', opts || {}),
+    importShaderAsset: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('importShaderAsset', opts || {}),
+    applyShaderAsset: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('applyShaderAsset', opts || {}),
+    removeShaderAsset: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('removeShaderAsset', opts || {}),
+    getShaderAssets: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('getShaderAssets', opts || {}),
+    /** A frame with music made into a rhythm game on its real beats: `{ id, lanes?, keys?, fall?, notes?, colors? }`. */
+    makeRhythmGame: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('makeRhythmGame', opts || {}),
     createComposition: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('createComposition', opts || {}),
     editComposition: (opts?: PopCraftCommandArgs) => rpc.call<unknown>('editComposition', opts || {}),
     /**
